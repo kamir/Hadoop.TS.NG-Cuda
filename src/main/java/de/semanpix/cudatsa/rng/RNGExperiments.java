@@ -40,7 +40,6 @@ public class RNGExperiments
         Vector<Vector<Messreihe>> tmp = new Vector();
 
 
-
         RNGModuleCUDA rng1 = new RNGModuleCUDA();
         modules.add( rng1 );
         Messreihe mr1 = new Messreihe();
