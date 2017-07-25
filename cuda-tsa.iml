@@ -48,8 +48,6 @@
     <orderEntry type="library" name="Maven: org.jcuda:jnvgraph:0.8.0" level="project" />
     <orderEntry type="library" name="Maven: org.jcuda:jnvgraph-natives:apple-x86_64:0.8.0" level="project" />
     <orderEntry type="library" name="Maven: org.jcuda:jcuda-vec:0.0.2" level="project" />
-    <orderEntry type="library" name="Maven: de.javagl:matrixmarketreader:0.0.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: org.jcuda:jcuda-matrix-utils:0.0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: com.github.wendykierp:JTransforms:with-dependencies:3.1" level="project" />
     <orderEntry type="library" name="Maven: pl.edu.icm:JLargeArrays:1.5" level="project" />
     <orderEntry type="library" name="Maven: org.jogamp.gluegen:gluegen-rt-main:2.3.2" level="project" />

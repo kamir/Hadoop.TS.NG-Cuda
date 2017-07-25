@@ -17,7 +17,7 @@ import java.util.TimeZone;
 /**
  * Created by kamir on 24.07.17.
  *
- *
+ * mvn exec:java -Dexec.mainClass="connectors.cmtsq.ClouderaManageTSQClient"
  *
  */
 public class ClouderaManageTSQClient {
