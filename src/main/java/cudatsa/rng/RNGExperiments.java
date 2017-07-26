@@ -26,7 +26,7 @@ public class RNGExperiments
 
     static int zRuns = 5;
     static boolean showPlotFrame = false;
-    static boolean useGPU = false;
+    static boolean useGPU = true;
 
 
     static int[] lengths = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000,
@@ -35,9 +35,10 @@ public class RNGExperiments
     public static void main(String args[])
     {
 
-        if ( args == null ) {
+        if ( args == null || args.length < 3) {
             zRuns = 1;
             showPlotFrame = true;
+            useGPU = true;
         }
         else {
             zRuns = Integer.parseInt( args[0] );
