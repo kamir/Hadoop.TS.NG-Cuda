@@ -21,6 +21,8 @@ public class ExampleBucketViewer {
      */
     public static void main(String[] args) throws IOException {
 
+        System.out.println(">>> Show the dummy time series bucket ... " );
+
         /**
          * needed for working with Hadoop XML-Properties files.
          */

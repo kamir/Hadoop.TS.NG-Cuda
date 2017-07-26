@@ -35,7 +35,7 @@ public class ExampleBucketCreator {
             TSBucket tsBucket = loader.loadBucket( f.getAbsolutePath() );
             Vector<Messreihe> rows = tsBucket.getBucketData();
 
-            MultiChart.open(rows,true,"Sample TimeSeries");
+            MultiChart.open(rows,true,"Sample Time Series");
 
         }
         catch (Exception e) {
@@ -45,9 +45,18 @@ public class ExampleBucketCreator {
     }
 
 
-    private static File generateSinusSeries( int z, String file ) {
+    /**
+     * TODO: return the File object for the new bucket.
+     *
+     * @param z
+     * @param filename
+     * @return
+     */
+    private static File generateSinusSeries( int z, String filename ) {
 
-            stdlib.StdRandom.initRandomGen(1);
+        System.out.println(">>> Create a dummy time series bucket ... " );
+
+        stdlib.StdRandom.initRandomGen(1);
 
             String baseOut = "./tsbucket/ex1/";
 
@@ -60,7 +69,7 @@ public class ExampleBucketCreator {
             System.out.println(">>> SinusTSBucketCreator (" + new Date(System.currentTimeMillis()) + ")");
             System.out.println(">   OUT : " + baseOut);
 
-            String s = file;
+            String s = filename;
 
             // We do no load data, but we use a GENERATOR here ...
 

@@ -3,25 +3,20 @@
  *
  * Copyright 2008-2016 Marco Hutter - http://www.jcuda.org
  */
-package jcuda.jcurand.samples;
-
-import static jcuda.jcurand.JCurand.curandCreateGenerator;
-import static jcuda.jcurand.JCurand.curandDestroyGenerator;
-import static jcuda.jcurand.JCurand.curandGenerateUniform;
-import static jcuda.jcurand.JCurand.curandSetPseudoRandomGeneratorSeed;
-import static jcuda.jcurand.curandRngType.CURAND_RNG_PSEUDO_DEFAULT;
-import static jcuda.runtime.JCuda.cudaFree;
-import static jcuda.runtime.JCuda.cudaMalloc;
-import static jcuda.runtime.JCuda.cudaMemcpy;
-import static jcuda.runtime.cudaMemcpyKind.cudaMemcpyDeviceToHost;
-
-import java.util.Arrays;
+package jcurand.samples;
 
 import jcuda.Pointer;
 import jcuda.Sizeof;
 import jcuda.jcurand.JCurand;
 import jcuda.jcurand.curandGenerator;
 import jcuda.runtime.JCuda;
+
+import java.util.Arrays;
+
+import static jcuda.jcurand.JCurand.*;
+import static jcuda.jcurand.curandRngType.CURAND_RNG_PSEUDO_DEFAULT;
+import static jcuda.runtime.JCuda.*;
+import static jcuda.runtime.cudaMemcpyKind.cudaMemcpyDeviceToHost;
 
 /**
  * Application showing how to use JCurand.<br>

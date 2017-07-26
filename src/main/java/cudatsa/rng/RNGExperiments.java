@@ -7,6 +7,7 @@ package cudatsa.rng;
 
 import org.apache.hadoopts.chart.simple.MultiChart;
 import org.apache.hadoopts.chart.simple.SigmaFilter;
+import org.apache.hadoopts.data.export.OriginProject;
 import org.apache.hadoopts.data.series.Messreihe;
 
 import java.util.Vector;
@@ -23,13 +24,27 @@ import java.util.Vector;
 public class RNGExperiments
 {
 
-    static int zRuns = 2;
+    static int zRuns = 5;
+    static boolean showPlotFrame = false;
+    static boolean useGPU = false;
+
 
     static int[] lengths = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000,
                              10000, 25000, 50000, 100000, 200000,300000,400000,500000, 600000, 700000, 800000, 900000, 1000000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000, 8000000, 9000000, 10000000 };
 
     public static void main(String args[])
     {
+
+        if ( args == null ) {
+            zRuns = 1;
+            showPlotFrame = true;
+        }
+        else {
+            zRuns = Integer.parseInt( args[0] );
+            showPlotFrame = Boolean.parseBoolean( args[1] );
+            useGPU = Boolean.parseBoolean( args[2] );
+        }
+
 
         Vector<String> labels = new Vector<String>();
 
@@ -40,11 +55,14 @@ public class RNGExperiments
         Vector<Vector<Messreihe>> tmp = new Vector();
 
 
+        if( useGPU ) {
+
         RNGModuleCUDA rng1 = new RNGModuleCUDA();
         modules.add( rng1 );
         Messreihe mr1 = new Messreihe();
         labels.add( RNGModuleCUDA.class.getName() );
         results.add(mr1);
+    }
 
 
         RNGModuleACMR rng2 = new RNGModuleACMR();
@@ -53,11 +71,15 @@ public class RNGExperiments
         labels.add( RNGModuleACMR.class.getName() );
         results.add(mr2);
 
+
+
         RNGModuleACMS rng3 = new RNGModuleACMS();
         modules.add( rng3 );
         Messreihe mr3 = new Messreihe();
         labels.add( RNGModuleACMS.class.getName() );
         results.add(mr3);
+
+
 
         RNGModuleJUR rng4 = new RNGModuleJUR();
         modules.add( rng4 );
@@ -82,16 +104,12 @@ public class RNGExperiments
 
         }
 
-
-
-
         int r = 0;
         while ( r < zRuns ){
 
         System.out.println( ">> RUN " + r );
 
         for (int n : lengths) {
-
 
             int i = 0;
             for (RNGModule rngm : modules) {
@@ -145,8 +163,25 @@ public class RNGExperiments
             l++;
         }
 
-        MultiChart.setSmallFont();
-        MultiChart.open(show, true);
+        if ( showPlotFrame ) {
+            MultiChart.setSmallFont();
+            MultiChart.open(show, true);
+        }
+        else {
+
+            OriginProject op = new OriginProject();
+
+            try {
+
+                op.initBaseFolder( "rng_report_" + System.currentTimeMillis() );
+                op.addMessreihen( show , "rng" , true );
+
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
 
     }
 
