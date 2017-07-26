@@ -24,7 +24,7 @@ import jcuda.jcurand.curandGenerator;
 import jcuda.runtime.JCuda;
 
 /**
- * A small sample application showing how to use JCurand.<br>
+ * Application showing how to use JCurand.<br>
  * <br>
  * This is a direct port of the NVIDIA CURAND documentation example.
  */
