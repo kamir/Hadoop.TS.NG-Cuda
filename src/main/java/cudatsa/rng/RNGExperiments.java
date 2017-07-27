@@ -29,16 +29,13 @@ public class RNGExperiments
     static boolean useGPU = true;
 
 
-    static int[] lengths = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 };
-
-
-    //                         10000, 25000, 50000, 100000, 200000,300000,400000,500000, 600000, 700000, 800000, 900000, 1000000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000, 8000000, 9000000, 10000000 };
+    static int[] lengths = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 25000, 50000, 100000, 200000,300000,400000,500000, 600000, 700000, 800000, 900000, 1000000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000, 8000000, 9000000, 10000000 };
 
     public static void main(String args[])
     {
 
         if ( args == null || args.length < 3) {
-            zRuns = 1;
+            zRuns = 10;
             showPlotFrame = true;
             useGPU = true;
         }
@@ -168,9 +165,9 @@ public class RNGExperiments
 
         if ( showPlotFrame ) {
 
-            String title = "Creation Time vs. Length of  Random Number Series";
+            String title = "Creation Time vs. Length of  Random Number Series on Multiple RNGs";
             String tx = "length";
-            String ty = "length";
+            String ty = "creation time";
 
             MultiChart.setSmallFont();
 
@@ -178,7 +175,6 @@ public class RNGExperiments
 
 
         }
-        else {
 
             OriginProject op = new OriginProject();
 
@@ -192,7 +188,6 @@ public class RNGExperiments
                 e.printStackTrace();
             }
 
-        }
 
     }
 
