@@ -1,7 +1,7 @@
 package cudatsa.rng;
 
 /**
- * This RNGModule provides random numbers created by the built in RNG.
+ * This RNGModule provides random numbers created by the built in RNG implemented in class Random in package java.util.
  *
  * Created by kamir on 25.05.17.
  */

@@ -10,6 +10,7 @@ import org.apache.hadoopts.chart.simple.SigmaFilter;
 import org.apache.hadoopts.data.export.OriginProject;
 import org.apache.hadoopts.data.series.Messreihe;
 
+import java.util.Locale;
 import java.util.Vector;
 
 /**
@@ -29,16 +30,17 @@ public class RNGExperiments
     static boolean useGPU = true;
 
 
-    static int[] lengths = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000,
-                             10000, 25000, 50000, 100000, 200000,300000,400000,500000, 600000, 700000, 800000, 900000, 1000000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000, 8000000, 9000000, 10000000 };
+    static int[] lengths = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 25000, 50000, 100000, 200000,300000,400000,500000, 600000, 700000, 800000, 900000, 1000000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000, 8000000, 9000000, 10000000 };
 
     public static void main(String args[])
     {
 
+        Locale.setDefault(new Locale("en", "USA"));
+
         if ( args == null || args.length < 3) {
-            zRuns = 1;
+            zRuns = 10;
             showPlotFrame = true;
-            useGPU = true;
+            useGPU = false;
         }
         else {
             zRuns = Integer.parseInt( args[0] );
@@ -56,14 +58,7 @@ public class RNGExperiments
         Vector<Vector<Messreihe>> tmp = new Vector();
 
 
-        if( useGPU ) {
 
-        RNGModuleCUDA rng1 = new RNGModuleCUDA();
-        modules.add( rng1 );
-        Messreihe mr1 = new Messreihe();
-        labels.add( RNGModuleCUDA.class.getName() );
-        results.add(mr1);
-    }
 
 
         RNGModuleACMR rng2 = new RNGModuleACMR();
@@ -87,6 +82,15 @@ public class RNGExperiments
         Messreihe mr4 = new Messreihe();
         labels.add( RNGModuleJUR.class.getName() );
         results.add(mr4);
+
+        if( useGPU ) {
+
+            RNGModuleCUDA rng1 = new RNGModuleCUDA();
+            modules.add( rng1 );
+            Messreihe mr1 = new Messreihe();
+            labels.add( RNGModuleCUDA.class.getName() );
+            results.add(mr1);
+        }
 
 
 
@@ -165,16 +169,23 @@ public class RNGExperiments
         }
 
         if ( showPlotFrame ) {
+
+            String title = "Creation Time vs. Length of  Random Number Series on Multiple RNGs";
+            String tx = "# of random numbers";
+            String ty = "creation time [ms]";
+
             MultiChart.setSmallFont();
-            MultiChart.open(show, true);
+
+            MultiChart.open(show, title, tx, ty, true);
+
+
         }
-        else {
 
             OriginProject op = new OriginProject();
 
             try {
 
-                op.initBaseFolder( "rng_report_" + System.currentTimeMillis() );
+                op.initBaseFolder( "out/rng_report_" + System.currentTimeMillis() );
                 op.addMessreihen( show , "rng" , true );
 
             }
@@ -182,7 +193,6 @@ public class RNGExperiments
                 e.printStackTrace();
             }
 
-        }
 
     }
 

@@ -27,11 +27,21 @@ public class JCurandSample
 {
     public static void main(String args[])
     {
+
+
+        int n = 10000000;
+
+        if ( args == null || args.length < 1) {
+            n = 100;
+        }
+        else {
+            n = Integer.parseInt( args[0] );
+        }
+
         // Enable exceptions and omit all subsequent error checks
         JCuda.setExceptionsEnabled(true);
         JCurand.setExceptionsEnabled(true);
 
-        int n = 10000000;
         curandGenerator generator = new curandGenerator();
 
         // Allocate n floats on host 
