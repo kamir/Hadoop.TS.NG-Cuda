@@ -10,6 +10,7 @@ import org.apache.hadoopts.chart.simple.SigmaFilter;
 import org.apache.hadoopts.data.export.OriginProject;
 import org.apache.hadoopts.data.series.Messreihe;
 
+import java.util.Locale;
 import java.util.Vector;
 
 /**
@@ -34,10 +35,12 @@ public class RNGExperiments
     public static void main(String args[])
     {
 
+        Locale.setDefault(new Locale("en", "USA"));
+
         if ( args == null || args.length < 3) {
             zRuns = 10;
             showPlotFrame = true;
-            useGPU = true;
+            useGPU = false;
         }
         else {
             zRuns = Integer.parseInt( args[0] );
@@ -55,14 +58,7 @@ public class RNGExperiments
         Vector<Vector<Messreihe>> tmp = new Vector();
 
 
-        if( useGPU ) {
 
-        RNGModuleCUDA rng1 = new RNGModuleCUDA();
-        modules.add( rng1 );
-        Messreihe mr1 = new Messreihe();
-        labels.add( RNGModuleCUDA.class.getName() );
-        results.add(mr1);
-    }
 
 
         RNGModuleACMR rng2 = new RNGModuleACMR();
@@ -86,6 +82,15 @@ public class RNGExperiments
         Messreihe mr4 = new Messreihe();
         labels.add( RNGModuleJUR.class.getName() );
         results.add(mr4);
+
+        if( useGPU ) {
+
+            RNGModuleCUDA rng1 = new RNGModuleCUDA();
+            modules.add( rng1 );
+            Messreihe mr1 = new Messreihe();
+            labels.add( RNGModuleCUDA.class.getName() );
+            results.add(mr1);
+        }
 
 
 
@@ -166,8 +171,8 @@ public class RNGExperiments
         if ( showPlotFrame ) {
 
             String title = "Creation Time vs. Length of  Random Number Series on Multiple RNGs";
-            String tx = "length";
-            String ty = "creation time";
+            String tx = "# of random numbers";
+            String ty = "creation time [ms]";
 
             MultiChart.setSmallFont();
 
@@ -180,7 +185,7 @@ public class RNGExperiments
 
             try {
 
-                op.initBaseFolder( "rng_report_" + System.currentTimeMillis() );
+                op.initBaseFolder( "out/rng_report_" + System.currentTimeMillis() );
                 op.addMessreihen( show , "rng" , true );
 
             }
