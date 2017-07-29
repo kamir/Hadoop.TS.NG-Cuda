@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>de.semanpix</groupId>
+  <groupId>com.cloudera</groupId>
   <artifactId>cuda-tsa</artifactId>
   <name>CUDA TSA</name>
-  <version>0.1.0-SNAPSHOT</version>
-  <description>Time Series Analysis with JCuda</description>
+  <version>0.2.0-SNAPSHOT</version>
+  <description>Time Series Analysis with JCuda and Apache Spark.</description>
   <url>http://www.jcuda-tsa.semanpix.de</url>
   <developers>
     <developer>
@@ -102,7 +102,7 @@
     </dependency>
   </dependencies>
   <properties>
-    <hadoopts.version>1.2.4</hadoopts.version>
+    <hadoopts.version>1.2.5</hadoopts.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jcuda.jcudaVersion>0.8.0</jcuda.jcudaVersion>
   </properties>
