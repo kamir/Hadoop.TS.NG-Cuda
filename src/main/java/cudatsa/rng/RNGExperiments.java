@@ -204,10 +204,18 @@ public class RNGExperiments
             }
 
 
-            dsp.DSProjectHelper.setSysClipboardText(zRuns + "_" + time);
-            System.out.println("#Please add the time stamp into the script: scripts/gnuplot/tsbucket_report.plot");
-            System.out.println("> zRuns : " + zRuns );
-            System.out.println("> time  : " + time );
+         try {
+             dsp.DSProjectHelper.setSysClipboardText(zRuns + "_" + time);
+         }
+         catch( Exception ex ) {
+             System.out.println("> Copy & Paste feature not available. " );
+
+         }
+
+        System.out.println("#Please add the time stamp into the script: scripts/gnuplot/tsbucket_report.plot");
+        System.out.println("> zRuns : " + zRuns);
+        System.out.println("> time  : " + time);
+
 
 
     }
