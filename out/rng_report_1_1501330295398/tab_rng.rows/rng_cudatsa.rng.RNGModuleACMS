@@ -1,0 +1,31 @@
+#
+# M e s s r e i h e 
+# Klasse : class org.apache.hadoopts.data.series.Messreihe 
+# Label  : cudatsa.rng.RNGModuleACMS
+#
+# Anzahl Wertepaare = 1
+#
+#
+#
+## X:
+# ==
+# Max    	 max_X=100000000.00000
+# Min    	 min_X=100000000.00000
+# Mean   	 mw__X=100000000.00000
+# StdAbw 	 std_X=�
+# Var    	 var_X=�
+# Sum    	 sum_X=100000000.00000
+# Nr     	 nr__X=1
+# 
+# Y:
+# ==
+# Max    	 max_Y=47034.00000
+# Min    	 min_Y=47034.00000
+# Mean   	 mw__Y=47034.00000
+# StdAbw 	 std_Y=�
+# Var    	 var_Y=�
+# Sum    	 sum_Y=47034.00000
+# Nr     	 nr__Y=1
+#
+100000000.00000 47034.00000
+#

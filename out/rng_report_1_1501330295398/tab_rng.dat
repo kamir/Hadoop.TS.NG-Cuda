@@ -1,0 +1,11 @@
+#
+# M e s s w e r t t a b e l l e  der Reihen:
+#
+# cudatsa.rng.RNGModuleACMR [1,1] Werte
+# cudatsa.rng.RNGModuleACMS [1,1] Werte
+# cudatsa.rng.RNGModuleJUR [1,1] Werte
+# cudatsa.rng.RNGModuleCUDA [1,1] Werte
+#
+#
+#x	y	x	y	x	y	x	y	
+100000000.00000	1184.00000	100000000.00000	47034.00000	100000000.00000	1172.00000	100000000.00000	1366.00000	

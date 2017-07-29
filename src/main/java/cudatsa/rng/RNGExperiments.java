@@ -27,10 +27,15 @@ public class RNGExperiments
 
     static int zRuns = 5;
     static boolean showPlotFrame = false;
+
     static boolean useGPU = true;
+    static boolean useACM = true;
+    static boolean useSECURE = true;
+    static boolean useJUR = true;
 
+//    static int[] lengths = {(int) 8E7};
 
-    static int[] lengths = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 25000, 50000, 100000, 200000,300000,400000,500000, 600000, 700000, 800000, 900000, 1000000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000, 8000000, 9000000, 10000000 };
+    static int[] lengths = { 100, 500, 1000, 2500, 5000, 7500, 10000, 20000,30000, 40000, 50000, 60000,70000,80000,90000, 100000, 200000,300000,400000, 500000,600000,700000, 800000,900000, 1000000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000, 8000000, 9000000 };
 
     public static void main(String args[])
     {
@@ -38,9 +43,9 @@ public class RNGExperiments
         Locale.setDefault(new Locale("en", "USA"));
 
         if ( args == null || args.length < 3) {
-            zRuns = 10;
+            zRuns = 100;
             showPlotFrame = true;
-            useGPU = false;
+            useGPU = true;
         }
         else {
             zRuns = Integer.parseInt( args[0] );
@@ -61,30 +66,33 @@ public class RNGExperiments
 
 
 
-        RNGModuleACMR rng2 = new RNGModuleACMR();
-        modules.add( rng2 );
-        Messreihe mr2 = new Messreihe();
-        labels.add( RNGModuleACMR.class.getName() );
-        results.add(mr2);
+        if( useACM ) {
+            RNGModuleACMR rng2 = new RNGModuleACMR();
+            modules.add(rng2);
+            Messreihe mr2 = new Messreihe();
+            labels.add(RNGModuleACMR.class.getName());
+            results.add(mr2);
+        }
 
 
+        if( useSECURE) {
+            RNGModuleACMS rng3 = new RNGModuleACMS();
+            modules.add(rng3);
+            Messreihe mr3 = new Messreihe();
+            labels.add(RNGModuleACMS.class.getName());
+            results.add(mr3);
+        }
 
-        RNGModuleACMS rng3 = new RNGModuleACMS();
-        modules.add( rng3 );
-        Messreihe mr3 = new Messreihe();
-        labels.add( RNGModuleACMS.class.getName() );
-        results.add(mr3);
 
-
-
-        RNGModuleJUR rng4 = new RNGModuleJUR();
-        modules.add( rng4 );
-        Messreihe mr4 = new Messreihe();
-        labels.add( RNGModuleJUR.class.getName() );
-        results.add(mr4);
+        if( useJUR ) {
+            RNGModuleJUR rng4 = new RNGModuleJUR();
+            modules.add(rng4);
+            Messreihe mr4 = new Messreihe();
+            labels.add(RNGModuleJUR.class.getName());
+            results.add(mr4);
+        }
 
         if( useGPU ) {
-
             RNGModuleCUDA rng1 = new RNGModuleCUDA();
             modules.add( rng1 );
             Messreihe mr1 = new Messreihe();
@@ -170,7 +178,7 @@ public class RNGExperiments
 
         if ( showPlotFrame ) {
 
-            String title = "Creation Time vs. Length of  Random Number Series on Multiple RNGs";
+            String title = "Creation Time vs. Length of  Random Number Series on Multiple RNGs (zRuns=" + zRuns + ")";
             String tx = "# of random numbers";
             String ty = "creation time [ms]";
 
@@ -183,15 +191,23 @@ public class RNGExperiments
 
             OriginProject op = new OriginProject();
 
+        long time = System.currentTimeMillis();
+
             try {
 
-                op.initBaseFolder( "out/rng_report_" + System.currentTimeMillis() );
+                op.initBaseFolder( "out/rng_report_" + zRuns + "_" + time );
                 op.addMessreihen( show , "rng" , true );
 
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
+
+
+            dsp.DSProjectHelper.setSysClipboardText(zRuns + "_" + time);
+            System.out.println("#Please add the time stamp into the script: scripts/gnuplot/tsbucket_report.plot");
+            System.out.println("> zRuns : " + zRuns );
+            System.out.println("> time  : " + time );
 
 
     }
