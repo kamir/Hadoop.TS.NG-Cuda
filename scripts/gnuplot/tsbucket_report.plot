@@ -40,4 +40,4 @@ set xlabel "# of random number"
 # plot DATA_FILE using 1:2 with lines title "Commons Math R", DATA_FILE using 3:4 with lines title "Commons Math S", DATA_FILE using 5:($6 * 1) with lines title "java.util.Random"
 
 # 4 rows
-plot DATA_FILE using 1:2 with lines title "JCuda", DATA_FILE using 3:4 with lines title "Commons Math R", DATA_FILE using 5:($6 * 1) with lines title "Commons Math S", DATA_FILE using 7:8 with lines title "java.util.Random"
+plot DATA_FILE using 1:2 with lines title "Commons Math R", DATA_FILE using 3:4 with lines title "Commons Math S", DATA_FILE using 5:($6 * 1) with lines title "java.util.Random", DATA_FILE using 7:8 with lines title "JCuda"
