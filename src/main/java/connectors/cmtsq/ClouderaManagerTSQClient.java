@@ -17,10 +17,10 @@ import java.util.TimeZone;
 /**
  * Created by kamir on 24.07.17.
  *
- * mvn exec:java -Dexec.mainClass="connectors.cmtsq.ClouderaManageTSQClient"
+ * mvn exec:java -Dexec.mainClass="connectors.cmtsq.ClouderaManagerTSQClient"
  *
  */
-public class ClouderaManageTSQClient {
+public class ClouderaManagerTSQClient {
 
     public static final String CM_HOST = "cdsw-demo-4.vpc.cloudera.com";
     public static final int CM_PORT = 7180;

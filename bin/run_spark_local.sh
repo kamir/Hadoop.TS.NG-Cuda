@@ -23,7 +23,7 @@ export SPARK_CONFIG="/GITHUB/cuda-tsa/spark-defaults.conf"
 #  Spark convenience tools:  		SparkShellUtilities.jar
 #  Gephi-Toolkit for local raphs:  	gephi-toolkit-0.9.2-20170113.202843-77-all.jar"
 #  ETOSHA-Network-Profile:
-export JARS="--jars /GITHUB/cuda-tsa/hadoop-ts-core-1.2.5.jar,/GITHUB/SparkShellUtilities/out/artifacts/s2u_jar/s2u.jar,/sparkws/bin/gephi-toolkit-0.9.2-20170113.202843-77-all.jar
+export JARS="--jars /GITHUB/cuda-tsa/hadoop-ts-core-1.2.5.jar,/GITHUB/SparkShellUtilities/out/artifacts/s2u_jar/s2u.jar,/sparkws/bin/gephi-toolkit-0.9.2-20170113.202843-77-all.jar"
 
 
 

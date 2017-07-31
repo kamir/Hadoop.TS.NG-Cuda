@@ -2,7 +2,6 @@ set terminal png
 
 set datafile separator ","
 
-
 set output "/GITHUB/cuda-tsa/out/plot.png"
 
 set title "TSBucket in Semi-log scaling"
