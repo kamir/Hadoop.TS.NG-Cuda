@@ -43,7 +43,7 @@ public class RNGExperiments
         Locale.setDefault(new Locale("en", "USA"));
 
         if ( args == null || args.length < 3) {
-            zRuns = 100;
+            zRuns = 10;
             showPlotFrame = true;
             useGPU = true;
         }
