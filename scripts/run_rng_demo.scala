@@ -1,11 +1,10 @@
 import jcurand.samples.JCurandSample
+import tsa.rng.RNGExperiments
 val args = Array("5")
 JCurandSample.main( args )
 
 
-  
-  
-import cudatsa.rng.RNGExperiments
+
 // 1 round
 // no chart, only console output
 val args = Array("5", "false", "true")

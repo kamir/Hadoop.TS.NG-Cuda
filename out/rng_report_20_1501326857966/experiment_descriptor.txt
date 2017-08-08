@@ -1,5 +1,18 @@
-Locally on a MacBookPro we could run the experiment only 20 times.
+Conditions:
+===========
+Locally, on a MacBookPro we could run the experiment only 20 times.
 The maximum number of elements per time series was 3 x 10E7 (and sometimes it worked with 8 x 10^7.
+
+Results:
+========
+The slowest procedure for random number generation is "Commons Math S" - a secure random number generator.
+The Java build in RNG is as fast a the "Commons Math R" method. All three show a linear runtime as function of time series length.
+The JCuda RNG is an exception to this. For short random number series (up to 5x10E6) it is slower than the Java build RNG and the
+"Apache Commons Math R algorithm. But for longer rows, the GPU base JCuda RNG is faster. It needs only half the time of two others
+to generate 3 x 10E7 random numbers.
+
+
+
 
 
 Usually we get this error if too many numbers should be generated due to the GPUs memory limit:
