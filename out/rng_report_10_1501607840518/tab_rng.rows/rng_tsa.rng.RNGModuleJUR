@@ -1,0 +1,34 @@
+#
+# M e s s r e i h e 
+# Klasse : class org.apache.hadoopts.data.series.Messreihe 
+# Label  : tsa.rng.RNGModuleJUR
+#
+# Anzahl Wertepaare = 4
+#
+#
+#
+## X:
+# ==
+# Max    	 max_X=1000000.00000
+# Min    	 min_X=1000.00000
+# Mean   	 mw__X=277750.00000
+# StdAbw 	 std_X=483570.31547
+# Var    	 var_X=233840250000.00000
+# Sum    	 sum_X=1111000.00000
+# Nr     	 nr__X=4
+# 
+# Y:
+# ==
+# Max    	 max_Y=0.00000
+# Min    	 min_Y=0.00000
+# Mean   	 mw__Y=0.00000
+# StdAbw 	 std_Y=0.00000
+# Var    	 var_Y=0.00000
+# Sum    	 sum_Y=0.00000
+# Nr     	 nr__Y=4
+#
+1000.00000 0.00000
+10000.00000 0.00000
+100000.00000 0.00000
+1000000.00000 0.00000
+#
