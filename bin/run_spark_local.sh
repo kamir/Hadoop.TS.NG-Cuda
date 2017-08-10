@@ -23,7 +23,7 @@ export SPARK_CONFIG="/GITHUB/cuda-tsa/spark-defaults.conf"
 #  Spark convenience tools:  		SparkShellUtilities.jar
 #  Gephi-Toolkit for local raphs:  	gephi-toolkit-0.9.2-20170113.202843-77-all.jar"
 #  ETOSHA-Network-Profile:
-export JARS="--jars /GITHUB/cuda-tsa/hadoop-ts-core-1.2.5.jar,/GITHUB/SparkShellUtilities/out/artifacts/s2u_jar/s2u.jar,/sparkws/bin/gephi-toolkit-0.9.2-20170113.202843-77-all.jar"
+export JARS="--jars /GITHUB/cuda-tsa/out/artifacts/cuda_tsa_jar/cuda-tsa_jar.jar,/GITHUB/cuda-tsa/lib/hadoop-ts-core-1.2.6.jar,/GITHUB/SparkShellUtilities/out/artifacts/s2u_jar/s2u.jar,/sparkws/bin/gephi-toolkit-0.9.2-20170113.202843-77-all.jar"
 
 
 
@@ -34,6 +34,7 @@ export JARS="--jars /GITHUB/cuda-tsa/hadoop-ts-core-1.2.5.jar,/GITHUB/SparkShell
 #zip -d /GITHUB/claerity-cloudera/XWARE42/shop-crawl/out/artifacts/any23_extractor_tool_jar/any23-extractor-tool.jar META-INF/*.RSA META-INF/*.DSA META-INF/*.SF
 #zip -d cuda-ts.jar META-INF/*.RSA META-INF/*.DSA META-INF/*.SF
 
+zip -d /GITHUB/cuda-tsa/target/cuda-tsa-0.2.0-SNAPSHOT-jar-with-dependencies.jar META-INF/*.RSA META-INF/*.DSA META-INF/*.SF
 
 #
 # !!! Warning !!!
@@ -96,9 +97,14 @@ echo
 #
 
 
-cd /GITHUB/cuda-tsa
-mvn clean compile install
-cp /GITHUB/cuda-tsa/target/cuda-tsa-0.1.0-SNAPSHOT-jar-with-dependencies.jar /GITHUB/cuda-tsa/bin/all.jar
+
+#
+# REBUILD VIA MAVEN ....
+#
+
+#cd /GITHUB/cuda-tsa
+#mvn clean compile install
+#cp /GITHUB/cuda-tsa/target/cuda-tsa-0.1.0-SNAPSHOT-jar-with-dependencies.jar /GITHUB/cuda-tsa/bin/all.jar
 
 #----------------------
 # Goto Spark 2.2.0 ...
