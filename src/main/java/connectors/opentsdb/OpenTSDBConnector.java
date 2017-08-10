@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Vector;
 
 
@@ -47,6 +48,13 @@ public class OpenTSDBConnector {
     // String OPENTSDB_HOST = "127.0.0.1";
 
     public OpenTSDBConnector() throws MalformedURLException {
+        putUrl = new URL("http://" + OPENTSDB_HOST + ":4242/api/put");
+        queryUrl =  new URL("http://" + OPENTSDB_HOST + ":4242/api/query");
+        eventTemplate = initTSToSend();
+    }
+
+    public OpenTSDBConnector(Properties props) throws MalformedURLException {
+        OPENTSDB_HOST = (String)props.getProperty( "opentsdb.host" );
         putUrl = new URL("http://" + OPENTSDB_HOST + ":4242/api/put");
         queryUrl =  new URL("http://" + OPENTSDB_HOST + ":4242/api/query");
         eventTemplate = initTSToSend();
@@ -161,6 +169,8 @@ public class OpenTSDBConnector {
 
         // storeBucketData(bucketData, connector, System.currentTimeMillis());
 
+        long now = System.currentTimeMillis();
+        String range = "start=0&end=" + now;
 
 
 
@@ -169,7 +179,7 @@ public class OpenTSDBConnector {
          * Read a single TSO from OpenTSDB.
          */
         Messreihe mr;
-        mr = readTimeSeriesForMetric( "demo1", "sum" , connector );
+        mr = readTimeSeriesForMetric( "demo1", "sum", range , connector );
         // System.out.println( mr );
 
         /**
@@ -179,12 +189,17 @@ public class OpenTSDBConnector {
 
         String[] metrics = {"demoW1" , "demoW2" , "demoW3" };
 
+
         Vector<Thread> rs = new Vector<Thread>();
         for( String m : metrics ) {
 
             // bucket.getBucketData().add( readTimeSeriesForMetric( m, "sum", connector ) );
 
-            TSReaderRunnable r1 = new TSReaderRunnable( m, "sum", connector, bucket );
+            // String range = "start=2017/08/05-00:00:00&end=2017/08/08-20:05:00";
+            long now2 = System.currentTimeMillis();
+            String range2 = "start=0&end=" + now2;
+
+            TSReaderRunnable r1 = new TSReaderRunnable( m, "sum", range2, connector, bucket );
             Thread t = new Thread( r1 );
             rs.add( t );
             t.start();
@@ -569,11 +584,12 @@ public class OpenTSDBConnector {
 
     }
 
-    public static Messreihe readTimeSeriesForMetric(String metric, String aggregator, OpenTSDBConnector connector) throws Exception {
+    public static Messreihe readTimeSeriesForMetric(String metric, String aggregator, String periode, OpenTSDBConnector connector ) throws Exception {
      // http://localhost:4242/api/query?start=1h-ago&m=sum:rate:proc.stat.cpu{host=foo,type=idle}
      // http://cc-poc-mk-3.gce.cloudera.com:4242/api/query?start=2017/08/05-00:00:00&end=2017/08/07-20:05:00&m=sum:demo2%7Bdistr=sine%7D&o=&yrange=%5B0:%5D&wxh=1850x879&style=linespoint
 
-        String periode = "start=2017/08/05-00:00:00&end=2017/08/08-20:05:00";
+        // String periode = "start=2017/08/05-00:00:00&end=2017/08/08-20:05:00";
+
         String queryString = "?" + periode + "&m=" + aggregator + ":" + metric;
 
         URL url4Call = new URL( connector.queryUrl + queryString );
@@ -596,6 +612,44 @@ public class OpenTSDBConnector {
 
         return OpenTSDBResponseTransformer.getMessreiheForJSONResponse( sb.toString() );
     }
+
+    // Connection for a permanent writers such as Flume or Spark Streaming ...
+    public void close() throws IOException {
+
+        System.out.println(">>> Close OpenTSDBConnector ... ");
+
+        out.flush();
+        out.close();
+
+
+    }
+
+    Socket pingSocket = null;
+    OutputStream out = null;
+
+    public void openSocket() {
+
+        try {
+            System.out.println(">>> Open OpenTSDBConnector ... ");
+            System.out.println(">>> Connect to OpenTSDB Service on : " + OpenTSDBConnector.OPENTSDB_HOST + " using Telnet mode (ListStreamMode: dot = 10.000 points).");
+
+
+            pingSocket = new Socket(OpenTSDBConnector.OPENTSDB_HOST, 4242);
+            out = pingSocket.getOutputStream();
+
+        }
+        catch (Exception ex ) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    public void sendEventViaSocket(OpenTSDBEvent ev) throws Exception {
+
+        // an individual event travels to OpenTSDB using the telnet protocoll ...
+        out.write( ("put " + ev.asTelnetPutLoad() + "\n").getBytes() );
+
+    }
 }
 
 class TSReaderRunnable implements Runnable {
@@ -605,14 +659,15 @@ class TSReaderRunnable implements Runnable {
     private OpenTSDBConnector connector;
     private TSBucket bucket;
     private String aggr;
+    private String r;
 
-
-    TSReaderRunnable( String m , String agg, OpenTSDBConnector con, TSBucket bu ) {
+    TSReaderRunnable( String m , String agg, String range, OpenTSDBConnector con, TSBucket bu ) {
         threadName = m;
         System.out.println("> Creating TS Loader for :  " +  threadName );
         connector = con;
         bucket = bu;
         aggr=agg;
+        r = range;
     }
 
 
@@ -622,7 +677,7 @@ class TSReaderRunnable implements Runnable {
 
         try {
 
-            Messreihe mr = OpenTSDBConnector.readTimeSeriesForMetric(threadName, aggr, connector);
+            Messreihe mr = OpenTSDBConnector.readTimeSeriesForMetric(threadName, aggr, r, connector);
 
             bucket.getBucketData().add(mr);
 

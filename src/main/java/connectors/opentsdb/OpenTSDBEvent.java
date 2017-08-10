@@ -19,6 +19,16 @@ public class OpenTSDBEvent implements Cloneable {
     public Map<String, String> tags = new HashMap<String, String>();
     transient Gson gson = new Gson();
 
+    public OpenTSDBEvent(String eventBody) {
+        super();
+
+        System.out.println( "> Parse flume-event body to generate an OpenTSDBEvent body ... ");
+    }
+
+    public OpenTSDBEvent() {
+        super();
+    }
+
     public String toJSON() {
         return gson.toJson(this, OpenTSDBEvent.class);
     }
