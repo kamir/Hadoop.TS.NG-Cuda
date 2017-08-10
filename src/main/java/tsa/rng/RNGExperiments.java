@@ -25,7 +25,7 @@ import java.util.Vector;
 public class RNGExperiments
 {
 
-    static int zRuns = 5;
+    static int zRuns = 3;
     static boolean showPlotFrame = false;
 
     static boolean useGPU = true;
