@@ -2,6 +2,7 @@ package tswb.tsa.examples;
 
 
 import connectors.opentsdb.OpenTSDBClient;
+import net.opentsdb.utils.Config;
 import org.apache.hadoopts.data.series.Messreihe;
 import org.apache.hadoopts.hadoopts.buckets.generator.TSBucketCreator_Sinus;
 import org.apache.hadoopts.hadoopts.core.TSBucket;
@@ -14,7 +15,35 @@ import java.util.Vector;
  */
 public class OpenTSDBWorkbenchDemo {
 
+
+    private static String pathToConfigFile;
+
+    public static void processArgs(final String[] args) {
+        // Set these as arguments so you don't have to keep path information in
+        // source files
+        if (args != null && args.length > 0) {
+            pathToConfigFile = args[0];
+        }
+    }
+
     public static void main(String[] ARGS) throws Exception {
+
+        ARGS = new String[1];
+        ARGS[0] = "etc/opentsdb.conf";
+
+        processArgs(ARGS);
+
+        // Create a config object with a path to the file for parsing. Or manually
+        // override settings.
+        // e.g. config.overrideConfig("tsd.storage.hbase.zk_quorum", "localhost");
+        final Config config;
+        if (pathToConfigFile != null && !pathToConfigFile.isEmpty()) {
+            config = new Config(pathToConfigFile);
+        } else {
+            // Search for a default config from /etc/opentsdb/opentsdb.conf, etc.
+            config = new Config(true);
+        }
+
 
         /**
          * needed for working with Hadoop XML-Properties files.
