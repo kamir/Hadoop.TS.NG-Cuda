@@ -8,5 +8,4 @@ public class OpenTSDBSeries {
     public String metric = null;
 
 
-
 }

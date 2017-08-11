@@ -22,7 +22,7 @@ public class OpenTSDBEvent implements Cloneable {
     public OpenTSDBEvent(String eventBody) {
         super();
 
-        System.out.println( "> Parse flume-event body to generate an OpenTSDBEvent body ... ");
+        System.out.println("> Parse flume-event body to generate an OpenTSDBEvent body ... ");
     }
 
     public OpenTSDBEvent() {
@@ -38,16 +38,16 @@ public class OpenTSDBEvent implements Cloneable {
     }
 
     public String asTelnetPutLoad() {
-        return metric + " " + timestamp + " " + value + " " +tagList();
+        return metric + " " + timestamp + " " + value + " " + tagList();
     }
 
     private String tagList() {
         Set<String> l = tags.keySet();
 
         StringBuffer sb = new StringBuffer();
-        for ( String s : l ) {
+        for (String s : l) {
 
-            sb.append( s + "=" + tags.get( s ) + " " );
+            sb.append(s + "=" + tags.get(s) + " ");
 
         }
 

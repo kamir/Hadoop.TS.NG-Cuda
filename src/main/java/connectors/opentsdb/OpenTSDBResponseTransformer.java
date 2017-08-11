@@ -15,8 +15,6 @@ import java.util.Set;
 public class OpenTSDBResponseTransformer {
 
     /**
-     *
-     *
      * https://github.com/json-path/JsonPath
      *
      * @param data
@@ -24,35 +22,32 @@ public class OpenTSDBResponseTransformer {
      */
     public static Messreihe getMessreiheForJSONResponse(String data) {
 
-        java.util.LinkedHashMap map = (java.util.LinkedHashMap)JsonPath.read(data, "$[0].dps") ;
-        String metric = (String)JsonPath.read(data, "$[0].metric") ;
-
+        java.util.LinkedHashMap map = (java.util.LinkedHashMap) JsonPath.read(data, "$[0].dps");
+        String metric = (String) JsonPath.read(data, "$[0].metric");
 
 
         Messreihe mr = new Messreihe();
-        mr.setLabel( metric );
-
+        mr.setLabel(metric);
 
 
         Set s = map.keySet();
 
         ArrayList al = new ArrayList(s);
 
-        Collections.sort( al );
+        Collections.sort(al);
 
         Iterator i = al.iterator();
 
-        while( i.hasNext() ) {
-            String keyS = (String)i.next();
+        while (i.hasNext()) {
+            String keyS = (String) i.next();
 
-            Object value = map.get( keyS );
+            Object value = map.get(keyS);
             Double v = null;
 
-            if( value instanceof java.lang.Double ) {
+            if (value instanceof java.lang.Double) {
                 v = (Double) value;
-            }
-            else {
-                BigDecimal bdv = (BigDecimal)value;
+            } else {
+                BigDecimal bdv = (BigDecimal) value;
                 v = bdv.doubleValue();
 
             }
@@ -60,11 +55,9 @@ public class OpenTSDBResponseTransformer {
             // System.out.println( keyS + "=>" + value.getClass() );
 
 
-
-           /////// PROBLEM WITH MULTIPLE POINTS AT THE SAME TIME !!!!
-           mr.addValuePair( Double.parseDouble( keyS ) , v );
+            /////// PROBLEM WITH MULTIPLE POINTS AT THE SAME TIME !!!!
+            mr.addValuePair(Double.parseDouble(keyS), v);
         }
-
 
 
         return mr;

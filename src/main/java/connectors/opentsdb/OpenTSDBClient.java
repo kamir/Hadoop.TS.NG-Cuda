@@ -70,9 +70,9 @@ public class OpenTSDBClient {
         connector.storeBucketData(bucketData, connector, t0);
     }
 
-    public Messreihe readTimeSeriesForMetric( String metric, String range ) throws Exception {
+    public Messreihe readTimeSeriesForMetric(String metric, String range) throws Exception {
         String aggregator = "sum";
-        Messreihe m = connector.readTimeSeriesForMetric( metric , aggregator, range, connector );
+        Messreihe m = connector.readTimeSeriesForMetric(metric, aggregator, range, connector);
         return m;
     }
 

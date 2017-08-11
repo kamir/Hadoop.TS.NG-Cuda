@@ -1,6 +1,7 @@
 package tswb.tsa.examples;
 
 import connectors.opentsdb.OpenTSDBConnector;
+
 import org.apache.spark.SparkConf;
 import org.apache.spark.streaming.Durations;
 import org.apache.spark.streaming.api.java.JavaReceiverInputDStream;
