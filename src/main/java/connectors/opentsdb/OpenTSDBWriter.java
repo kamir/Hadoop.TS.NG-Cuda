@@ -13,12 +13,7 @@
 
 package connectors.opentsdb;
 
-import net.opentsdb.utils.Config;
-
-
 public class OpenTSDBWriter {
-
-
 
 
 }

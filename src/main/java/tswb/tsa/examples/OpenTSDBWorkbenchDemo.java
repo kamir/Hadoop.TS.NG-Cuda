@@ -1,8 +1,10 @@
 package tswb.tsa.examples;
 
 
-import connectors.opentsdb.OpenTSDBClient;
+import connectors.opentsdb.*;
+
 import net.opentsdb.utils.Config;
+
 import org.apache.hadoopts.data.series.Messreihe;
 import org.apache.hadoopts.hadoopts.buckets.generator.TSBucketCreator_Sinus;
 import org.apache.hadoopts.hadoopts.core.TSBucket;

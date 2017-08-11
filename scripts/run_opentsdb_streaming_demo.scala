@@ -1,10 +1,26 @@
 import connectors.opentsdb.OpenTSDBConnector
+import org.apache.hadoopts.data.series.Messreihe
 import sun.security.util.SignatureFileVerifier
-
 
 val data = Array(1, 2, 3, 4, 5)
 
 val distData = sc.parallelize(data)
+
+val connector = new OpenTSDBConnector();
+
+
+
+
+
+import org.apache.hadoopts.data.series.Messreihe
+
+stdlib.StdRandom.initRandomGen( 1 )
+
+val mr1 = Messreihe.getGaussianDistribution( 10000, 10, 1)
+
+
+
+
 
 
 
@@ -21,7 +37,18 @@ val distData = sc.parallelize(data)
 #
 
 
-
+#
+#
+#
+#scala> OpenTSDBConnector.storeMessreiheAsStream( mr30 , connector, System.currentTimeMillis )
+#java.lang.IllegalAccessError: tried to access method connectors.opentsdb.OpenTSDBConnector.storeMessreiheAsStream(Lorg/apache/hadoopts/data/series/Messreihe;Lconnectors/opentsdb/OpenTSDBConnector;J)V from class $iw
+#... 48 elided
+#
+#
+#
+# This happens when accessing a package scoped method of a class that is in the same package but is in a different jar and classloader. More here
+#
+#
 distData.mapPartitionsWithIndex{
                      // 'index' represents the Partition No
                      // 'iterator' to iterate through all elements
