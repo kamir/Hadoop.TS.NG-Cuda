@@ -22,24 +22,33 @@ import java.util.TimeZone;
  */
 public class ClouderaManagerTSQClient {
 
-    public static final String CM_HOST = "http://cdsw-demo-4.vpc.cloudera.com";
-    public static final int CM_PORT = 7180;
+    public static String CM_HOST = "http://cdsw-demo-4.vpc.cloudera.com";
+    public static int CM_PORT = 7180;
+    public static String CM_USER = "admin";
+    public static String CM_PWD = "admin";
 
     public static void main( String[] ARGS ) {
 
-        System.out.println("   CM-API");
-        System.out.println("   ------");
-        System.out.println("* CM-HOST : " + CM_HOST );
-        System.out.println("* CM-PORT : " + CM_PORT );
+
+        CM_HOST = ARGS[0];
+        CM_PORT = Integer.parseInt(ARGS[1]);
+        CM_USER = ARGS[2];
+        CM_PWD = ARGS[3];
 
         // https://www.cloudera.com/documentation/enterprise/5-9-x/topics/cm_dg_tsquery.html
         TSQ q1 = TSQ.getDefaultTSQ();
 
+        System.out.println("  Access CM-API");
+        System.out.println("  -------------");
+        System.out.println("  CM-HOST : " + CM_HOST );
+        System.out.println("  CM-PORT : " + CM_PORT );
+
         ApiRootResource root = new ClouderaManagerClientBuilder()
                 .withHost( CM_HOST )
                 .withPort( CM_PORT )
-                .withUsernamePassword("admin", "admin")
+                .withUsernamePassword(CM_USER, CM_PWD)
                 .build();
+
 
         RootResourceV6 v6 = root.getRootV6();
 
