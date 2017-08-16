@@ -22,7 +22,7 @@ import java.util.TimeZone;
  */
 public class ClouderaManagerTSQClient {
 
-    public static final String CM_HOST = "cdsw-demo-4.vpc.cloudera.com";
+    public static final String CM_HOST = "http://cdsw-demo-4.vpc.cloudera.com";
     public static final int CM_PORT = 7180;
 
     public static void main( String[] ARGS ) {
