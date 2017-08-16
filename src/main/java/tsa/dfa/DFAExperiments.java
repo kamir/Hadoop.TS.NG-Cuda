@@ -7,9 +7,9 @@ package tsa.dfa;
 
 import org.apache.hadoopts.chart.simple.MultiChart;
 import org.apache.hadoopts.chart.simple.SigmaFilter;
-import org.apache.hadoopts.data.TestDataFactory;
+import org.apache.hadoopts.data.generator.TestDataFactory;
 import org.apache.hadoopts.data.export.OriginProject;
-import org.apache.hadoopts.data.series.Messreihe;
+import org.apache.hadoopts.data.series.TimeSeriesObject;
 import org.apache.hadoopts.statphys.detrending.MultiDFATool4;
 
 import java.util.Locale;
@@ -59,9 +59,9 @@ public class DFAExperiments
 
         Vector<DFAModule> modules = new Vector();
 
-        Vector<Messreihe> results = new Vector();
+        Vector<TimeSeriesObject> results = new Vector();
 
-        Vector<Vector<Messreihe>> tmp = new Vector();
+        Vector<Vector<TimeSeriesObject>> tmp = new Vector();
 
 
 
@@ -73,7 +73,7 @@ public class DFAExperiments
         if( useHTSA ) {
             DFAModuleHTSA1 dfam1 = new DFAModuleHTSA1();
             modules.add(dfam1);
-            Messreihe mr4 = new Messreihe();
+            TimeSeriesObject mr4 = new TimeSeriesObject();
             labels.add(DFAModuleHTSA1.class.getName());
             results.add(mr4);
         }
@@ -81,7 +81,7 @@ public class DFAExperiments
         if( useGPU ) {
             DFAModuleCUDA dfam2 = new DFAModuleCUDA();
             modules.add( dfam2 );
-            Messreihe mr1 = new Messreihe();
+            TimeSeriesObject mr1 = new TimeSeriesObject();
             labels.add( DFAModuleCUDA.class.getName() );
             results.add(mr1);
         }
@@ -90,11 +90,11 @@ public class DFAExperiments
 
         for (DFAModule rngm : modules) {
 
-            Vector<Messreihe> rTemp = new Vector<Messreihe>();
+            Vector<TimeSeriesObject> rTemp = new Vector<TimeSeriesObject>();
 
             for( int r=0; r < zRuns; r++ ) {
 
-                Messreihe mrRun = new Messreihe();
+                TimeSeriesObject mrRun = new TimeSeriesObject();
 
                 mrRun.setLabel( rngm.toString() + "_" + r );
 
@@ -123,7 +123,7 @@ public class DFAExperiments
 
                 float[] hostData = module.createRandomSeries(n, n);
 
-                Messreihe mr = getMessreiheForFloatArray( hostData );
+                TimeSeriesObject mr = getMessreiheForFloatArray( hostData );
 
                 double t1 = System.currentTimeMillis();
 
@@ -147,21 +147,21 @@ public class DFAExperiments
 
 
     }
-        Vector<Messreihe> show = new Vector<Messreihe>();
+        Vector<TimeSeriesObject> show = new Vector<TimeSeriesObject>();
 
         int l = 0;
-        for( Vector<Messreihe> runsResults : tmp ) {
+        for( Vector<TimeSeriesObject> runsResults : tmp ) {
 
 
             SigmaFilter sf = new SigmaFilter();
 
-            for( Messreihe m : runsResults ) {
+            for( TimeSeriesObject m : runsResults ) {
                 sf.addCollect( m, false );
             }
 
             sf.aggregate();
 
-            Messreihe mr =  Messreihe.averageForAll( runsResults );
+            TimeSeriesObject mr =  TimeSeriesObject.averageForAll( runsResults );
             mr.xValues = labelVector();
 
             mr.setLabel( labels.elementAt( l ) );
@@ -214,14 +214,14 @@ public class DFAExperiments
 
     }
 
-    private static void runDFA(Messreihe mr) {
+    private static void runDFA(TimeSeriesObject mr) {
 
         MultiDFATool4 tool = new MultiDFATool4();
         tool.logLogResults = true;
         tool.showCharts = true;
         tool.storeCharts = true;
 
-        Vector<Messreihe> vmr = new Vector<Messreihe>();
+        Vector<TimeSeriesObject> vmr = new Vector<TimeSeriesObject>();
         vmr.add(mr);
 
         // nun werden die Berechnungen für verschiedene Ordnungen durchgeführt
@@ -238,8 +238,8 @@ public class DFAExperiments
 
     }
 
-    private static Messreihe getMessreiheForFloatArray(float[] hostData) {
-        Messreihe mr = new Messreihe();
+    private static TimeSeriesObject getMessreiheForFloatArray(float[] hostData) {
+        TimeSeriesObject mr = new TimeSeriesObject();
         int c = 0;
         for ( float v : hostData ) {
            mr.addValuePair((double)c, (double)v );
@@ -256,7 +256,7 @@ public class DFAExperiments
         return l;
     }
 
-    public static Vector<Messreihe> getTestReihen( int anz ) {
+    public static Vector<TimeSeriesObject> getTestReihen(int anz ) {
         stdlib.StdRandom.initRandomGen(1);
 
 
@@ -265,10 +265,10 @@ public class DFAExperiments
                 1000, 600, 200, 100, 2000,
                 1234, 5678, 2222, 100, 10  };
 
-        Vector<Messreihe> vmr = new Vector<Messreihe>();
+        Vector<TimeSeriesObject> vmr = new Vector<TimeSeriesObject>();
         for (int i = 0; i < anz; i++) {
 
-            Messreihe mr = TestDataFactory.getDataSeriesRandomValues_RW(length[i]);
+            TimeSeriesObject mr = TestDataFactory.getDataSeriesRandomValues_RW(length[i]);
             mr.setLabel("R" + i + " [" + length[i] + "]");
             vmr.add(mr);
         }

@@ -1,6 +1,6 @@
 package connectors.opentsdb;
 
-import org.apache.hadoopts.data.series.Messreihe;
+import org.apache.hadoopts.data.series.TimeSeriesObject;
 
 import java.net.MalformedURLException;
 import java.util.Vector;
@@ -58,21 +58,21 @@ public class OpenTSDBClient {
     }
 
 
-    public void storeMessreiheNow(Messreihe row) throws Exception {
+    public void storeMessreiheNow(TimeSeriesObject row) throws Exception {
         connector.storeMessreihe(row, connector);
     }
 
-    public void storeMessreiheWithOffset(Messreihe row, long t0) throws Exception {
+    public void storeMessreiheWithOffset(TimeSeriesObject row, long t0) throws Exception {
         connector.storeMessreihe(row, connector, t0);
     }
 
-    public void storeBucketData(Vector<Messreihe> bucketData, long t0) throws Exception {
+    public void storeBucketData(Vector<TimeSeriesObject> bucketData, long t0) throws Exception {
         connector.storeBucketData(bucketData, connector, t0);
     }
 
-    public Messreihe readTimeSeriesForMetric(String metric, String range) throws Exception {
+    public TimeSeriesObject readTimeSeriesForMetric(String metric, String range) throws Exception {
         String aggregator = "sum";
-        Messreihe m = connector.readTimeSeriesForMetric(metric, aggregator, range, connector);
+        TimeSeriesObject m = connector.readTimeSeriesForMetric(metric, aggregator, range, connector);
         return m;
     }
 

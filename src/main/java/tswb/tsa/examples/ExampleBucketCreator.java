@@ -1,7 +1,7 @@
 package tswb.tsa.examples;
 
 import org.apache.hadoopts.chart.simple.MultiChart;
-import org.apache.hadoopts.data.series.Messreihe;
+import org.apache.hadoopts.data.series.TimeSeriesObject;
 import org.apache.hadoopts.hadoopts.buckets.BucketLoader;
 import org.apache.hadoopts.hadoopts.buckets.generator.TSBucketCreator_Sinus;
 import org.apache.hadoopts.hadoopts.core.TSBucket;
@@ -33,7 +33,7 @@ public class ExampleBucketCreator {
 
             BucketLoader loader = new BucketLoader();
             TSBucket tsBucket = loader.loadBucket( f.getAbsolutePath() );
-            Vector<Messreihe> rows = tsBucket.getBucketData();
+            Vector<TimeSeriesObject> rows = tsBucket.getBucketData();
 
             MultiChart.open(rows,true,"Sample Time Series");
 

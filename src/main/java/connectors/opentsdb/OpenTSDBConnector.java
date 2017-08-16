@@ -1,7 +1,7 @@
 package connectors.opentsdb;
 
 import org.apache.hadoopts.chart.simple.MultiChart;
-import org.apache.hadoopts.data.series.Messreihe;
+import org.apache.hadoopts.data.series.TimeSeriesObject;
 import org.apache.hadoopts.hadoopts.core.TSBucket;
 
 import java.io.*;
@@ -123,14 +123,14 @@ public class OpenTSDBConnector {
 
 
         /**
-         * Put a set of noisy "Messreihe" to OpenTSDB with current time stamp.
+         * Put a set of noisy "TimeSeriesObject" to OpenTSDB with current time stamp.
 
 
-         Messreihe mr1 = Messreihe.getGaussianDistribution( 100 );
+         TimeSeriesObject mr1 = TimeSeriesObject.getGaussianDistribution( 100 );
          mr1.setLabel( "demo1 s=1,distr=gauss,run=1" );
-         Messreihe mr2 = Messreihe.getGaussianDistribution( 100, 1000, 10 );
+         TimeSeriesObject mr2 = TimeSeriesObject.getGaussianDistribution( 100, 1000, 10 );
          mr2.setLabel( "demo1 s=2,distr=gauss,run=1" );
-         Messreihe mr3 = Messreihe.getGaussianDistribution( 100, 100, 2000 );
+         TimeSeriesObject mr3 = TimeSeriesObject.getGaussianDistribution( 100, 100, 2000 );
          mr3.setLabel( "demo1 s=3,distr=gauss,run=1" );
 
          storeMessreihe( mr1, connector );
@@ -146,16 +146,16 @@ public class OpenTSDBConnector {
         /**
          * NEEDS BETTER SCALING
          */
-        Messreihe mr10 = Messreihe.getParetoDistribution(100000, 1000000);
+        TimeSeriesObject mr10 = TimeSeriesObject.getParetoDistribution(100000, 1000000);
         mr10.setLabel("demoW10 distr=pareto,run=1");
 
-        Messreihe mr20 = Messreihe.getExpDistribution(100000, 10000);
+        TimeSeriesObject mr20 = TimeSeriesObject.getExpDistribution(100000, 10000);
         mr20.setLabel("demoW20 distr=exp,run=1");
 
-        Messreihe mr30 = Messreihe.getGaussianDistribution(100000, 10000, 100);
+        TimeSeriesObject mr30 = TimeSeriesObject.getGaussianDistribution(100000, 10000, 100);
         mr30.setLabel("demoW30 distr=gauss,run=1");
 
-        Vector<Messreihe> bucketData = new Vector<Messreihe>();
+        Vector<TimeSeriesObject> bucketData = new Vector<TimeSeriesObject>();
         bucketData.add(mr10);
         bucketData.add(mr20);
         bucketData.add(mr30);
@@ -169,7 +169,7 @@ public class OpenTSDBConnector {
         /**
          * Read a single TSO from OpenTSDB.
          */
-        Messreihe mr;
+        TimeSeriesObject mr;
         mr = readTimeSeriesForMetric("demo1", "sum", range, connector);
         // System.out.println( mr );
 
@@ -206,7 +206,7 @@ public class OpenTSDBConnector {
 
         // Take rows from Runnnable ....
         // ---------------------------------
-        Vector<Messreihe> loadedBucketData = new Vector<Messreihe>();
+        Vector<TimeSeriesObject> loadedBucketData = new Vector<TimeSeriesObject>();
         for (TSReaderRunnable r : rs2) {
             loadedBucketData.add(r.mr);
         }
@@ -220,8 +220,8 @@ public class OpenTSDBConnector {
 
     }
 
-    protected static void storeBucketData(Vector<Messreihe> bucketData, OpenTSDBConnector connector, long l) throws Exception {
-        for (Messreihe mr : bucketData) {
+    protected static void storeBucketData(Vector<TimeSeriesObject> bucketData, OpenTSDBConnector connector, long l) throws Exception {
+        for (TimeSeriesObject mr : bucketData) {
 
             System.out.println("persist row : " + mr.getLabel() + " => " + mr.xValues.size());
 
@@ -313,11 +313,11 @@ public class OpenTSDBConnector {
      */
 
 
-    public static void storeMessreiheAsStream(Messreihe row, OpenTSDBConnector connector, long offset) throws Exception {
+    public static void storeMessreiheAsStream(TimeSeriesObject row, OpenTSDBConnector connector, long offset) throws Exception {
         streamEventsToOpenTSDB(row, offset, connector);
     }
 
-    public static void storeMessreihe(Messreihe row, OpenTSDBConnector connector, long offset) throws Exception {
+    public static void storeMessreihe(TimeSeriesObject row, OpenTSDBConnector connector, long offset) throws Exception {
 
         // We expect the metric as String in this way.
 
@@ -399,7 +399,7 @@ public class OpenTSDBConnector {
 
     }
 
-    public static void storeMessreihe(Messreihe row, OpenTSDBConnector connector) throws Exception {
+    public static void storeMessreihe(TimeSeriesObject row, OpenTSDBConnector connector) throws Exception {
 
         long t0 = System.currentTimeMillis();
 
@@ -417,7 +417,7 @@ public class OpenTSDBConnector {
     // docker exec -it 6b5162c943bd /bin/bash
     // vi /etc/opentsdb/opentsdb.conf
     //
-    public static void streamEventsToOpenTSDB(Messreihe row, long offset, OpenTSDBConnector connector) throws Exception {
+    public static void streamEventsToOpenTSDB(TimeSeriesObject row, long offset, OpenTSDBConnector connector) throws Exception {
 
         double resolution = 1000.0;
 
@@ -515,7 +515,7 @@ public class OpenTSDBConnector {
     // docker exec -it 6b5162c943bd /bin/bash
     // vi /etc/opentsdb/opentsdb.conf
     //
-    private static List<OpenTSDBEvent> getEventsFrom(Messreihe row, long offset) throws CloneNotSupportedException {
+    private static List<OpenTSDBEvent> getEventsFrom(TimeSeriesObject row, long offset) throws CloneNotSupportedException {
 
         double resolution = 1000.0;
 
@@ -581,7 +581,7 @@ public class OpenTSDBConnector {
 
     }
 
-    public static Messreihe readTimeSeriesForMetric(String metric, String aggregator, String periode, OpenTSDBConnector connector) throws Exception {
+    public static TimeSeriesObject readTimeSeriesForMetric(String metric, String aggregator, String periode, OpenTSDBConnector connector) throws Exception {
         // http://localhost:4242/api/query?start=1h-ago&m=sum:rate:proc.stat.cpu{host=foo,type=idle}
         // http://cc-poc-mk-3.gce.cloudera.com:4242/api/query?start=2017/08/05-00:00:00&end=2017/08/07-20:05:00&m=sum:demo2%7Bdistr=sine%7D&o=&yrange=%5B0:%5D&wxh=1850x879&style=linespoint
 
@@ -647,7 +647,7 @@ public class OpenTSDBConnector {
 
 class TSReaderRunnable implements Runnable {
 
-    public Messreihe mr;
+    public TimeSeriesObject mr;
 
     private Thread t;
     private String threadName;
