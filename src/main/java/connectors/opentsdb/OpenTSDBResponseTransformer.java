@@ -1,7 +1,7 @@
 package connectors.opentsdb;
 
 import com.jayway.jsonpath.JsonPath;
-import org.apache.hadoopts.data.series.Messreihe;
+import org.apache.hadoopts.data.series.TimeSeriesObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -20,13 +20,13 @@ public class OpenTSDBResponseTransformer {
      * @param data
      * @return
      */
-    public static Messreihe getMessreiheForJSONResponse(String data) {
+    public static TimeSeriesObject getMessreiheForJSONResponse(String data) {
 
         java.util.LinkedHashMap map = (java.util.LinkedHashMap) JsonPath.read(data, "$[0].dps");
         String metric = (String) JsonPath.read(data, "$[0].metric");
 
 
-        Messreihe mr = new Messreihe();
+        TimeSeriesObject mr = new TimeSeriesObject();
         mr.setLabel(metric);
 
 

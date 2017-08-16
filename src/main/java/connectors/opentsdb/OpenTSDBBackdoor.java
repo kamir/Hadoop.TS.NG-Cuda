@@ -1,13 +1,13 @@
 package connectors.opentsdb;
 
-import org.apache.hadoopts.data.series.Messreihe;
+import org.apache.hadoopts.data.series.TimeSeriesObject;
 
 /**
  * Created by kamir on 06.08.17.
  */
 public class OpenTSDBBackdoor {
 
-    public static void putMessreiheToHBase(String ZK, String metric, Messreihe row) {
+    public static void putMessreiheToHBase(String ZK, String metric, TimeSeriesObject row) {
 
         // check details about Metric ...
 

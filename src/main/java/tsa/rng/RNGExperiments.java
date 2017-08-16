@@ -8,7 +8,7 @@ package tsa.rng;
 import org.apache.hadoopts.chart.simple.MultiChart;
 import org.apache.hadoopts.chart.simple.SigmaFilter;
 import org.apache.hadoopts.data.export.OriginProject;
-import org.apache.hadoopts.data.series.Messreihe;
+import org.apache.hadoopts.data.series.TimeSeriesObject;
 
 import java.util.Locale;
 import java.util.Vector;
@@ -58,9 +58,9 @@ public class RNGExperiments
 
         Vector<RNGModule> modules = new Vector();
 
-        Vector<Messreihe> results = new Vector();
+        Vector<TimeSeriesObject> results = new Vector();
 
-        Vector<Vector<Messreihe>> tmp = new Vector();
+        Vector<Vector<TimeSeriesObject>> tmp = new Vector();
 
 
 
@@ -69,7 +69,7 @@ public class RNGExperiments
         if( useACM ) {
             RNGModuleACMR rng2 = new RNGModuleACMR();
             modules.add(rng2);
-            Messreihe mr2 = new Messreihe();
+            TimeSeriesObject mr2 = new TimeSeriesObject();
             labels.add(RNGModuleACMR.class.getName());
             results.add(mr2);
         }
@@ -78,7 +78,7 @@ public class RNGExperiments
         if( useSECURE) {
             RNGModuleACMS rng3 = new RNGModuleACMS();
             modules.add(rng3);
-            Messreihe mr3 = new Messreihe();
+            TimeSeriesObject mr3 = new TimeSeriesObject();
             labels.add(RNGModuleACMS.class.getName());
             results.add(mr3);
         }
@@ -87,7 +87,7 @@ public class RNGExperiments
         if( useJUR ) {
             RNGModuleJUR rng4 = new RNGModuleJUR();
             modules.add(rng4);
-            Messreihe mr4 = new Messreihe();
+            TimeSeriesObject mr4 = new TimeSeriesObject();
             labels.add(RNGModuleJUR.class.getName());
             results.add(mr4);
         }
@@ -95,7 +95,7 @@ public class RNGExperiments
         if( useGPU ) {
             RNGModuleCUDA rng1 = new RNGModuleCUDA();
             modules.add( rng1 );
-            Messreihe mr1 = new Messreihe();
+            TimeSeriesObject mr1 = new TimeSeriesObject();
             labels.add( RNGModuleCUDA.class.getName() );
             results.add(mr1);
         }
@@ -104,9 +104,9 @@ public class RNGExperiments
 
         for (RNGModule rngm : modules) {
 
-            Vector<Messreihe> rTemp = new Vector<Messreihe>();
+            Vector<TimeSeriesObject> rTemp = new Vector<TimeSeriesObject>();
             for( int r=0; r < zRuns; r++ ) {
-                Messreihe mrRun = new Messreihe();
+                TimeSeriesObject mrRun = new TimeSeriesObject();
                 mrRun.setLabel( rngm.toString() + "_" + r );
 
                 rTemp.add( mrRun );
@@ -154,21 +154,21 @@ public class RNGExperiments
 
 
     }
-        Vector<Messreihe> show = new Vector<Messreihe>();
+        Vector<TimeSeriesObject> show = new Vector<TimeSeriesObject>();
 
         int l = 0;
-        for( Vector<Messreihe> runsResults : tmp ) {
+        for( Vector<TimeSeriesObject> runsResults : tmp ) {
 
 
             SigmaFilter sf = new SigmaFilter();
 
-            for( Messreihe m : runsResults ) {
+            for( TimeSeriesObject m : runsResults ) {
                 sf.addCollect( m, false );
             }
 
             sf.aggregate();
 
-            Messreihe mr =  Messreihe.averageForAll( runsResults );
+            TimeSeriesObject mr =  TimeSeriesObject.averageForAll( runsResults );
             mr.xValues = labelVector();
 
             mr.setLabel( labels.elementAt( l ) );

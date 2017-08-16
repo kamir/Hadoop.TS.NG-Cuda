@@ -5,7 +5,7 @@ import connectors.opentsdb.*;
 
 import net.opentsdb.utils.Config;
 
-import org.apache.hadoopts.data.series.Messreihe;
+import org.apache.hadoopts.data.series.TimeSeriesObject;
 import org.apache.hadoopts.hadoopts.buckets.generator.TSBucketCreator_Sinus;
 import org.apache.hadoopts.hadoopts.core.TSBucket;
 
@@ -81,8 +81,8 @@ public class OpenTSDBWorkbenchDemo {
 
 
         int i = 0;
-        Vector<Messreihe> rows = bucket.getBucketData();
-        for( Messreihe r : rows ) {
+        Vector<TimeSeriesObject> rows = bucket.getBucketData();
+        for( TimeSeriesObject r : rows ) {
             i++;
             r.setLabel( "demo2 distr=sine,id=" + i );
         }
@@ -107,8 +107,8 @@ public class OpenTSDBWorkbenchDemo {
 
         i = 0;
         bucket.loadFromSequenceFile( new File( "tstest/sine-wave-bucketabucket.ts.seq_sinus_.tsb.vec.seq")  );
-        Vector<Messreihe> rowsA = (Vector<Messreihe>) bucket.getBucketData();
-        for( Messreihe r : rowsA ) {
+        Vector<TimeSeriesObject> rowsA = (Vector<TimeSeriesObject>) bucket.getBucketData();
+        for( TimeSeriesObject r : rowsA ) {
             i++;
             r.setLabel( "demoA c=1,id=" + i );
         }
@@ -116,24 +116,24 @@ public class OpenTSDBWorkbenchDemo {
 
         i = 0;
         bucket.loadFromSequenceFile( new File( "tstest/sine-wave-bucketabucket.ts.seq_sinus_.tsb.vec.seq")  );
-        Vector<Messreihe> rowsB = (Vector<Messreihe>) bucket.getBucketData();
-        for( Messreihe r : rowsB ) {
+        Vector<TimeSeriesObject> rowsB = (Vector<TimeSeriesObject>) bucket.getBucketData();
+        for( TimeSeriesObject r : rowsB ) {
             i++;
             r.setLabel( "demoA c=2,id=" + i );
         }
 
         i = 0;
         bucket.loadFromSequenceFile( new File( "tstest/sine-wave-bucketabucket.ts.seq_sinus_.tsb.vec.seq")  );
-        Vector<Messreihe> rowsC = (Vector<Messreihe>) bucket.getBucketData();
-        for( Messreihe r : rowsC ) {
+        Vector<TimeSeriesObject> rowsC = (Vector<TimeSeriesObject>) bucket.getBucketData();
+        for( TimeSeriesObject r : rowsC ) {
             i++;
             r.setLabel( "demoA c=3,id=" + i );
         }
 
         i = 0;
         bucket.loadFromSequenceFile( new File( "tstest/sine-wave-bucketabucket.ts.seq_sinus_.tsb.vec.seq")  );
-        Vector<Messreihe> rowsD = (Vector<Messreihe>) bucket.getBucketData();
-        for( Messreihe r : rowsD ) {
+        Vector<TimeSeriesObject> rowsD = (Vector<TimeSeriesObject>) bucket.getBucketData();
+        for( TimeSeriesObject r : rowsD ) {
             i++;
             r.setLabel( "demoA c=4,id=" + i );
         }
