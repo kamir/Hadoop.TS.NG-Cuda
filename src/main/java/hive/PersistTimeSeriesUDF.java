@@ -10,7 +10,7 @@ import org.apache.hadoop.hive.ql.exec.Description;
 import org.apache.hadoop.hive.ql.exec.UDF;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoopts.data.series.TimeSeriesObject;
-
+import java.util.ArrayList;
 
 /**
  *
@@ -44,7 +44,17 @@ public class PersistTimeSeriesUDF extends UDF {
     }
 
 //    public Text evaluate(String[] tsList, String[] valList, String dbhost, String metric, String[] tags ) {
-    public Text evaluate(java.util.List<String> tsList, java.util.List<String> valList, String dbhost, String metric, java.util.List<String> tags ) {
+
+
+
+
+    public Text evaluate(String tsList, String valList, String dbhost, String metric, String tags) {
+        
+        return new Text( tags );
+
+    }
+
+    public Text evaluate(ArrayList<String> tsList, ArrayList<String> valList, String dbhost, String metric, ArrayList<String> tags ) {
 
 
         try {
