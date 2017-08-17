@@ -22,8 +22,12 @@ import org.apache.hadoopts.data.series.TimeSeriesObject;
  *
  * /usr/java/jdk1.7.0_67-cloudera/bin/java -cp target/cuda-tsa-0.2.0-SNAPSHOT-jar-with-dependencies.jar hive.UDFTester
  *
- * hdfs dfs -rm /user/admin/udf/udf-h-tsa.jar
- * hdfs dfs -put target/cuda-tsa-0.2.0-SNAPSHOT-jar-with-dependencies.jar /user/admin/udf/udf-h-tsa.jar
+ *
+ * sudo -u hdfs hdfs dfs -rm /user/admin/udf/udf-h-tsa.jar
+ * sudo -u hdfs hdfs dfs -put target/cuda-tsa-0.2.0-SNAPSHOT-jar-with-dependencies.jar /user/admin/udf/udf-h-tsa.jar
+ * sudo -u hdfs hdfs dfs -chmod 777 /user/admin/udf/udf-h-tsa.jar
+ * sudo -u hdfs hdfs dfs -chown admin:admin /user/admin/udf/udf-h-tsa.jar
+ *
  */
 
 @Description(name = "StoreTS", value = "_FUNC( Array(LONG), Array(Double), String dbhost, String metric, Array(String) tags) - stores the aggregated data points into OpenTSDB.", extended = "TBD.")
@@ -44,7 +48,7 @@ public class PersistTimeSeriesUDF extends UDF {
     }
 
 //    public Text evaluate(String[] tsList, String[] valList, String dbhost, String metric, String[] tags ) {
-    public Text evaluate(java.util.List<String> tsList, java.util.List<String> valList, String dbhost, String metric, java.util.List<String> tags ) {
+    public String evaluate(java.util.List<String> tsList, java.util.List<String> valList, String dbhost, String metric, java.util.List<String> tags ) {
 
 
         try {
