@@ -48,9 +48,7 @@ public class PersistTimeSeriesUDF extends UDF {
     }
 
 //    public Text evaluate(String[] tsList, String[] valList, String dbhost, String metric, String[] tags ) {
-<<<<<<< HEAD
-    public String evaluate(java.util.List<String> tsList, java.util.List<String> valList, String dbhost, String metric, java.util.List<String> tags ) {
-=======
+
 
 
 
@@ -62,8 +60,6 @@ public class PersistTimeSeriesUDF extends UDF {
     }
 
     public Text evaluate(ArrayList<String> tsList, ArrayList<String> valList, String dbhost, String metric, ArrayList<String> tags ) {
->>>>>>> 44245f9c55cb91b32706bcd0949d67b2f04828b6
-
 
         try {
 
