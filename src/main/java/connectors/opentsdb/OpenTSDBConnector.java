@@ -505,6 +505,77 @@ public class OpenTSDBConnector {
 
     }
 
+
+    public static String streamEventsToOpenTSDB(TimeSeriesObject row, OpenTSDBConnector connector) {
+
+        int nrEvents = 0;
+
+        try {
+        double resolution = 1000.0;
+
+        double[][] DATA = row.getData();
+
+        // Iterate over all data points ...
+        int i = 0;
+
+
+        System.out.println(">>> Connect to OpenTSDB Service on : " + OpenTSDBConnector.OPENTSDB_HOST + " using Telnet mode (ListStreamMode: dot = 10.000 points).");
+
+        Socket pingSocket = null;
+
+        pingSocket = new Socket(OpenTSDBConnector.OPENTSDB_HOST, 4242);
+        OutputStream out = pingSocket.getOutputStream();
+
+        for (i = 0; i < DATA[0].length; i++) {
+
+            OpenTSDBEvent e = new OpenTSDBEvent(); // TEMPLATE OBJECT
+
+            // "sys.cpu.idle server=2,rack=1,ds=1";
+            String name = row.getLabel();
+            // String name = "sys.cpu.idle server=2,rack=1,ds=1";
+
+//            System.out.println("[LABEL] " + row.getLabel() );
+
+            String[] PARTS = name.split(" ");
+            String metric = PARTS[0];
+            e.metric = metric;
+
+            String[] TAGS = PARTS[1].split(",");
+            for (String tag : TAGS) {
+                String[] KV = tag.split("=");
+                e.tags.put(KV[0], KV[1]);
+            }
+
+            Long l = (new Double(DATA[0][i])).longValue();
+
+            e.timestamp = l.toString();
+            e.value = "" + DATA[1][i];
+
+
+            out.write(("put " + e.asTelnetPutLoad() + "\n").getBytes());
+
+            System.out.println("*** put " + e.asTelnetPutLoad() + "\n");
+
+        }
+
+        nrEvents = i+1;
+
+        out.flush();
+        out.close();
+
+        return "Transfer sucessfull. {" + nrEvents + " events }";
+
+        }
+        catch(Exception ex) {
+
+            return "!!! Transfer FAILED !!! [i=" + nrEvents + "] {" + ex.getMessage() + "}";
+
+        }
+
+    }
+
+
+
     //
     // We need bulk load to OpenTSDB:
     //
