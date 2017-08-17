@@ -18,7 +18,12 @@ import org.apache.hadoopts.data.series.TimeSeriesObject;
  *
  * http://gethue.com/hadoop-tutorial-hive-udf-in-1-minute/
  *
+ * mvn exec:java -Dexec.mainClass="hive.UDFTester"
  *
+ * /usr/java/jdk1.7.0_67-cloudera/bin/java -cp target/cuda-tsa-0.2.0-SNAPSHOT-jar-with-dependencies.jar hive.UDFTester
+ *
+ * hdfs dfs -rm /user/admin/udf/udf-h-tsa.jar
+ * hdfs dfs -put target/cuda-tsa-0.2.0-SNAPSHOT-jar-with-dependencies.jar /user/admin/udf/udf-h-tsa.jar
  */
 
 @Description(name = "StoreTS", value = "_FUNC( Array(LONG), Array(Double), String dbhost, String metric, Array(String) tags) - stores the aggregated data points into OpenTSDB.", extended = "TBD.")
@@ -38,10 +43,13 @@ public class PersistTimeSeriesUDF extends UDF {
         return result;
     }
 
-    public Text evaluate(String[] tsList, String[] valList, String dbhost, String metric, String[] tags ) {
+//    public Text evaluate(String[] tsList, String[] valList, String dbhost, String metric, String[] tags ) {
+    public Text evaluate(java.util.List<String> tsList, java.util.List<String> valList, String dbhost, String metric, java.util.List<String> tags ) {
+
 
         try {
-            OpenTSDBConnector connector = new OpenTSDBConnector(dbhost);
+
+            OpenTSDBConnector connector = new OpenTSDBConnector( dbhost );
 
             TimeSeriesObject mr = new TimeSeriesObject();
 
@@ -57,11 +65,11 @@ public class PersistTimeSeriesUDF extends UDF {
 
             mr.setLabel( seriesName );
 
-            int z = tsList.length;
+            int z = tsList.size();
             int j = 0;
             while ( j < z ) {
 
-                mr.addValuePair( Long.parseLong( tsList[j] ), Double.parseDouble( valList[j] ) );
+                mr.addValuePair( Long.parseLong( tsList.get(j) ), Double.parseDouble( valList.get(j) ) );
 
                 j++;
             }
