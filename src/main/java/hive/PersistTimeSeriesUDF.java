@@ -17,7 +17,7 @@ import org.apache.hadoopts.data.series.TimeSeriesObject;
  * How to register this UDF in HUE?
  *
  * http://gethue.com/hadoop-tutorial-hive-udf-in-1-minute/
- * 
+ *
  *
  */
 
