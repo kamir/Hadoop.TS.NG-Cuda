@@ -1,9 +1,8 @@
 package hive;
 
 import org.apache.hadoop.io.Text;
-
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import com.google.common.collect.*;
 
 /**
  * Created by kamir on 17.08.17.
@@ -40,9 +39,9 @@ public class UDFTester {
 
 
 
-        List<String> tsList = Arrays.asList(   ts   );
-        List<String> valList = Arrays.asList(   val   );
-        List<String> tagsList = Arrays.asList(   tags   );
+        ArrayList<String> tsList = Lists.newArrayList( Arrays.asList(   ts   ));
+        ArrayList<String> valList = Lists.newArrayList( Arrays.asList(   val   ));
+        ArrayList<String> tagsList = Lists.newArrayList( Arrays.asList(   tags   ));
 
 
 
