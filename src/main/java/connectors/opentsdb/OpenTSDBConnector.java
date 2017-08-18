@@ -220,6 +220,44 @@ public class OpenTSDBConnector {
 
     }
 
+    public static Vector<TimeSeriesObject> loadBucketFromOpenTSDB( String[] metrics , OpenTSDBConnector connector, TSBucket bucket) throws Exception {
+
+
+
+        Vector<Thread> rs = new Vector<Thread>();
+        Vector<TSReaderRunnable> rs2 = new Vector<TSReaderRunnable>();
+        for (String m : metrics) {
+
+            // bucket.getBucketData().add( readTimeSeriesForMetric( m, "sum", connector ) );
+
+            // String range = "start=2017/08/05-00:00:00&end=2017/08/08-20:05:00";
+            long now2 = System.currentTimeMillis();
+            String range2 = "start=0&end=" + now2;
+
+            TSReaderRunnable r1 = new TSReaderRunnable(m, "sum", range2, connector, bucket);
+            Thread t = new Thread(r1);
+            rs.add(t);
+            t.start();
+
+            rs2.add(r1);
+
+        }
+        for (Thread t : rs) {
+            t.join();
+        }
+
+
+        // Take rows from Runnnable ....
+        // ---------------------------------
+        Vector<TimeSeriesObject> loadedBucketData = new Vector<TimeSeriesObject>();
+        for (TSReaderRunnable r : rs2) {
+            loadedBucketData.add(r.mr);
+        }
+
+        return loadedBucketData;
+
+    }
+
     protected static void storeBucketData(Vector<TimeSeriesObject> bucketData, OpenTSDBConnector connector, long l) throws Exception {
         for (TimeSeriesObject mr : bucketData) {
 
