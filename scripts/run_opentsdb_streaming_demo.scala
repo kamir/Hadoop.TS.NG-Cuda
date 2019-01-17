@@ -1,5 +1,7 @@
 import connectors.opentsdb.OpenTSDBConnector
-import org.apache.hadoopts.data.series.{Messreihe, TimeSeriesObject}
+
+import org.apache.hadoopts.data.series.{TimeSeriesObject}
+
 import sun.security.util.SignatureFileVerifier
 
 val data = Array(1, 2, 3, 4, 5)
@@ -52,6 +54,7 @@ distData.mapPartitionsWithIndex{
                      // 'iterator' to iterate through all elements
                      //                         in the partition
                      (index, iterator) => {
+
                           println("Called in Partition -> " + index)
                           val myList = iterator.toList
 

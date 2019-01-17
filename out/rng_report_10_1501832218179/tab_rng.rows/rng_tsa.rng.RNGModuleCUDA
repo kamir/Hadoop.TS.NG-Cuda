@@ -1,7 +1,7 @@
 #
 # M e s s r e i h e 
 # Klasse : class org.apache.hadoopts.data.series.Messreihe 
-# Label  : tsa.rng.RNGModuleCUDA
+# Label  : tsa.rng.RNGModuleCUDAImpl
 #
 # Anzahl Wertepaare = 33
 #

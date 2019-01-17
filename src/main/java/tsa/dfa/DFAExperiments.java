@@ -79,10 +79,10 @@ public class DFAExperiments
         }
 
         if( useGPU ) {
-            DFAModuleCUDA dfam2 = new DFAModuleCUDA();
+            DFAModuleCUDAImpl dfam2 = new DFAModuleCUDAImpl();
             modules.add( dfam2 );
             TimeSeriesObject mr1 = new TimeSeriesObject();
-            labels.add( DFAModuleCUDA.class.getName() );
+            labels.add( DFAModuleCUDAImpl.class.getName() );
             results.add(mr1);
         }
 

@@ -93,10 +93,10 @@ public class RNGExperiments
         }
 
         if( useGPU ) {
-            RNGModuleCUDA rng1 = new RNGModuleCUDA();
+            RNGModuleCUDAImpl rng1 = new RNGModuleCUDAImpl();
             modules.add( rng1 );
             TimeSeriesObject mr1 = new TimeSeriesObject();
-            labels.add( RNGModuleCUDA.class.getName() );
+            labels.add( RNGModuleCUDAImpl.class.getName() );
             results.add(mr1);
         }
 
