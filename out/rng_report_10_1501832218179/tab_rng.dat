@@ -4,7 +4,7 @@
 # tsa.rng.RNGModuleACMR [33,33] Werte
 # tsa.rng.RNGModuleACMS [33,33] Werte
 # tsa.rng.RNGModuleJUR [33,33] Werte
-# tsa.rng.RNGModuleCUDAImpl [33,33] Werte
+# RNGModuleCUDAImpl [33,33] Werte
 #
 #
 #x	y	x	y	x	y	x	y	

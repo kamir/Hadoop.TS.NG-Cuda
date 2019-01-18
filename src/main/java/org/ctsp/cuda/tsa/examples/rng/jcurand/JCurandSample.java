@@ -3,7 +3,7 @@
  *
  * Copyright 2008-2016 Marco Hutter - http://www.jcuda.org
  */
-package jcurand.samples;
+package org.ctsp.cuda.tsa.examples.rng.jcurand;
 
 import jcuda.Pointer;
 import jcuda.Sizeof;
@@ -27,7 +27,6 @@ public class JCurandSample
 {
     public static void main(String args[])
     {
-
 
         int n = 10000000;
 

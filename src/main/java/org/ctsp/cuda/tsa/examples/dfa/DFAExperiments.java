@@ -3,12 +3,16 @@
  *
  * Copyright 2008-2016 Marco Hutter - http://www.jcuda.org
  */
-package tsa.rng;
+package org.ctsp.cuda.tsa.examples.dfa;
 
 import org.apache.hadoopts.chart.simple.MultiChart;
 import org.apache.hadoopts.chart.simple.SigmaFilter;
+import org.apache.hadoopts.data.generator.TestDataFactory;
 import org.apache.hadoopts.data.export.OriginProject;
 import org.apache.hadoopts.data.series.TimeSeriesObject;
+import org.apache.hadoopts.statphys.detrending.MultiDFATool4;
+import tsa.dfa.DFAModule;
+import tsa.dfa.DFAModuleHTSA1;
 
 import java.util.Locale;
 import java.util.Vector;
@@ -22,30 +26,29 @@ import java.util.Vector;
  * The CUDA example is based on a port of the NVIDIA CURAND documentation example.
  *
  */
-public class RNGExperiments
+public class DFAExperiments
 {
 
-    static int zRuns = 3;
+    static int zRuns = 5;
     static boolean showPlotFrame = false;
 
-    static boolean useGPU = true;
-    static boolean useACM = true;
-    static boolean useSECURE = true;
-    static boolean useJUR = true;
+    static boolean useGPU = false;
+    static boolean useHTSA;
 
-//    static int[] lengths = {(int) 8E7};
-
-    static int[] lengths = { 100, 500, 1000, 2500, 5000, 7500, 10000, 20000,30000, 40000, 50000, 60000,70000,80000,90000, 100000, 200000,300000,400000, 500000,600000,700000, 800000,900000, 1000000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000, 8000000, 9000000 };
+    static int[] lengths = { 1000, 10000, 100000, 1000000 };
 
     public static void main(String args[])
     {
+
+
+
 
         Locale.setDefault(new Locale("en", "USA"));
 
         if ( args == null || args.length < 3) {
             zRuns = 10;
             showPlotFrame = true;
-            useGPU = true;
+            useGPU = false;
         }
         else {
             zRuns = Integer.parseInt( args[0] );
@@ -56,7 +59,7 @@ public class RNGExperiments
 
         Vector<String> labels = new Vector<String>();
 
-        Vector<RNGModule> modules = new Vector();
+        Vector<DFAModule> modules = new Vector();
 
         Vector<TimeSeriesObject> results = new Vector();
 
@@ -66,47 +69,35 @@ public class RNGExperiments
 
 
 
-        if( useACM ) {
-            RNGModuleACMR rng2 = new RNGModuleACMR();
-            modules.add(rng2);
-            TimeSeriesObject mr2 = new TimeSeriesObject();
-            labels.add(RNGModuleACMR.class.getName());
-            results.add(mr2);
-        }
 
 
-        if( useSECURE) {
-            RNGModuleACMS rng3 = new RNGModuleACMS();
-            modules.add(rng3);
-            TimeSeriesObject mr3 = new TimeSeriesObject();
-            labels.add(RNGModuleACMS.class.getName());
-            results.add(mr3);
-        }
 
-
-        if( useJUR ) {
-            RNGModuleJUR rng4 = new RNGModuleJUR();
-            modules.add(rng4);
+        if( useHTSA ) {
+            DFAModuleHTSA1 dfam1 = new DFAModuleHTSA1();
+            modules.add(dfam1);
             TimeSeriesObject mr4 = new TimeSeriesObject();
-            labels.add(RNGModuleJUR.class.getName());
+            labels.add(DFAModuleHTSA1.class.getName());
             results.add(mr4);
         }
 
         if( useGPU ) {
-            RNGModuleCUDAImpl rng1 = new RNGModuleCUDAImpl();
-            modules.add( rng1 );
+            DFAModuleCUDAImpl dfam2 = new DFAModuleCUDAImpl();
+            modules.add( dfam2 );
             TimeSeriesObject mr1 = new TimeSeriesObject();
-            labels.add( RNGModuleCUDAImpl.class.getName() );
+            labels.add( DFAModuleCUDAImpl.class.getName() );
             results.add(mr1);
         }
 
 
 
-        for (RNGModule rngm : modules) {
+        for (DFAModule rngm : modules) {
 
             Vector<TimeSeriesObject> rTemp = new Vector<TimeSeriesObject>();
+
             for( int r=0; r < zRuns; r++ ) {
+
                 TimeSeriesObject mrRun = new TimeSeriesObject();
+
                 mrRun.setLabel( rngm.toString() + "_" + r );
 
                 rTemp.add( mrRun );
@@ -114,11 +105,9 @@ public class RNGExperiments
             }
 
             tmp.add( rTemp );
-
         }
 
         int r = 0;
-
         while ( r < zRuns ){
 
         System.out.println( ">> RUN " + r );
@@ -126,21 +115,27 @@ public class RNGExperiments
         for (int n : lengths) {
 
             int i = 0;
-            for (RNGModule rngm : modules) {
+            for (DFAModule module : modules) {
 
-                System.out.println(rngm.toString() + " => " + n);
+                System.out.println(module.toString() + " => " + n);
 
-                rngm.init(n);
+                module.init(n);
 
                 double t0 = System.currentTimeMillis();
 
-                float[] hostData = rngm.createRandomSeries(n, n);
+                float[] hostData = module.createRandomSeries(n, n);
+
+                TimeSeriesObject mr = getMessreiheForFloatArray( hostData );
 
                 double t1 = System.currentTimeMillis();
 
-                double dt = t1 - t0;
+                runDFA( mr );
 
-                // System.out.println(rngm.toString() + " => " + dt + " ms ");
+                double t2 = System.currentTimeMillis();
+
+                double dt = t2 - t1;
+
+                // System.out.println(module.toString() + " => " + dt + " ms ");
 
                 results.elementAt(i).addValuePair(n, dt);
 
@@ -150,7 +145,7 @@ public class RNGExperiments
             }
 
         }
-            r++;
+        r++;
 
 
     }
@@ -181,7 +176,7 @@ public class RNGExperiments
 
             String title = "Creation Time vs. Length of  Random Number Series on Multiple RNGs (zRuns=" + zRuns + ")";
             String tx = "# of random numbers";
-            String ty = "creation time [ms]";
+            String ty = "time to calc F(s) [ms]";
 
             MultiChart.setSmallFont();
 
@@ -221,6 +216,40 @@ public class RNGExperiments
 
     }
 
+    private static void runDFA(TimeSeriesObject mr) {
+
+        MultiDFATool4 tool = new MultiDFATool4();
+        tool.logLogResults = true;
+        tool.showCharts = true;
+        tool.storeCharts = true;
+
+        Vector<TimeSeriesObject> vmr = new Vector<TimeSeriesObject>();
+        vmr.add(mr);
+
+        // nun werden die Berechnungen für verschiedene Ordnungen durchgeführt
+        int[] orders = { 2 };
+        for (int i : orders) {
+            try {
+                tool.runDFA(vmr, i);
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+        }
+
+    }
+
+    private static TimeSeriesObject getMessreiheForFloatArray(float[] hostData) {
+        TimeSeriesObject mr = new TimeSeriesObject();
+        int c = 0;
+        for ( float v : hostData ) {
+           mr.addValuePair((double)c, (double)v );
+           c++;
+        }
+        return mr;
+    }
+
     private static Vector labelVector() {
         Vector<Double> l = new Vector<Double>();
         for(int le : lengths ) {
@@ -229,4 +258,23 @@ public class RNGExperiments
         return l;
     }
 
+    public static Vector<TimeSeriesObject> getTestReihen(int anz ) {
+        stdlib.StdRandom.initRandomGen(1);
+
+
+        int[] length = { 1000, 500, 250, 500, 2500,
+                3500, 1450, 2500, 700, 3000,
+                1000, 600, 200, 100, 2000,
+                1234, 5678, 2222, 100, 10  };
+
+        Vector<TimeSeriesObject> vmr = new Vector<TimeSeriesObject>();
+        for (int i = 0; i < anz; i++) {
+
+            TimeSeriesObject mr = TestDataFactory.getDataSeriesRandomValues_RW(length[i]);
+            mr.setLabel("R" + i + " [" + length[i] + "]");
+            vmr.add(mr);
+        }
+
+        return vmr;
+    }
 }

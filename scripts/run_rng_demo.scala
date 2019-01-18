@@ -1,6 +1,5 @@
-import jcurand.samples.JCurandSample
-import tsa.rng.RNGExperiments
-
+import org.ctsp.cuda.tsa.examples.rng.RNGExperiments
+import org.ctsp.cuda.tsa.examples.rng.jcurand.JCurandSample
 
 
 val args = Array("5")

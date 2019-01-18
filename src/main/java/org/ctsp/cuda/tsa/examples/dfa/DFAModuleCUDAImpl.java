@@ -1,4 +1,6 @@
-package tsa.dfa;
+package org.ctsp.cuda.tsa.examples.dfa;
+
+import tsa.dfa.DFAModuleCUDA;
 
 /**
  * Created by kamir on 01.08.17.

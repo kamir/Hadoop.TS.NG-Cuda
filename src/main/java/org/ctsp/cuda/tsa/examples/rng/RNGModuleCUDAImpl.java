@@ -1,10 +1,11 @@
-package tsa.rng;
+package org.ctsp.cuda.tsa.examples.rng;
 
 import jcuda.Pointer;
 import jcuda.Sizeof;
 import jcuda.jcurand.JCurand;
 import jcuda.jcurand.curandGenerator;
 import jcuda.runtime.JCuda;
+import tsa.rng.RNGModuleCUDA;
 
 import static jcuda.jcurand.JCurand.*;
 import static jcuda.jcurand.curandRngType.CURAND_RNG_PSEUDO_DEFAULT;
