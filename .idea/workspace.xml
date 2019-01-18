@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4cba7c79-60bd-46ff-b293-6293a1be6d4c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/ci/run_jenkins2_on_docker.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ci/run_jenkins2_on_docker.sh" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -64,8 +63,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bin/ci/run_jenkins2_on_docker.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+            <state relative-caret-position="270">
+              <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -181,7 +180,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547831917337" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547832452810" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -253,7 +252,7 @@
       <workItem from="1547758101642" duration="3000" />
       <workItem from="1547795765818" duration="2000" />
       <workItem from="1547795787566" duration="2000" />
-      <workItem from="1547798401950" duration="4661000" />
+      <workItem from="1547798401950" duration="5195000" />
     </task>
     <task id="LOCAL-00001" summary="added a Docekrfile for building a Jenkins CI container">
       <created>1547831867869</created>
@@ -266,7 +265,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13892000" />
+    <option name="totallyTimeSpent" value="14426000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="280" y="28" width="1400" height="921" extended-state="0" />
@@ -552,8 +551,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bin/ci/run_jenkins2_on_docker.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+        <state relative-caret-position="270">
+          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
         </state>
       </provider>
     </entry>

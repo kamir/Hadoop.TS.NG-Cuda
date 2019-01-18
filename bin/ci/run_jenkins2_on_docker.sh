@@ -16,8 +16,8 @@ docker run -d \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /Users/kamir/var/jenkins_home:/var/jenkins_home \
     -p 8080:8080 \
-    --name jenkins \
-    kamir/jankins-ci:latest
+    --name jenkins-ci-mk \
+    kamir/jenkins-ci-mk:latest
 
 
 
