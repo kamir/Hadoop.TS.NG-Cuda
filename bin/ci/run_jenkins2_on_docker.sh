@@ -17,4 +17,8 @@ docker run -d \
     -v /Users/kamir/var/jenkins_home:/var/jenkins_home \
     -p 8080:8080 \
     --name jenkins \
-    jenkinsci/jenkins
+    kamir/jankins-ci:latest
+
+
+
+#   jenkinsci/jenkins

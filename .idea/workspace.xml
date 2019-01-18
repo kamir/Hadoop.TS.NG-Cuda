@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4cba7c79-60bd-46ff-b293-6293a1be6d4c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/ci/run_jenkins2_on_docker.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.jenkins" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/docker/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/rng_report_10_1501832218179/tab_rng.dat" beforeDir="false" afterPath="$PROJECT_DIR$/out/rng_report_10_1501832218179/tab_rng.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/rng_report_10_1501832218179/tab_rng.rows/rng_tsa.rng.RNGModuleCUDA" beforeDir="false" afterPath="$PROJECT_DIR$/out/rng_report_10_1501832218179/tab_rng.rows/rng_tsa.rng.RNGModuleCUDA" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run_rng_demo.scala" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run_rng_demo.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jcurand/samples/JCurandSample.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ctsp/cuda/tsa/examples/rng/jcurand/JCurandSample.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tsa/dfa/DFAExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ctsp/cuda/tsa/examples/dfa/DFAExperiments.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tsa/dfa/DFAModuleCUDAImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ctsp/cuda/tsa/examples/dfa/DFAModuleCUDAImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tsa/rng/RNGExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ctsp/cuda/tsa/examples/rng/RNGExperiments.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tsa/rng/RNGModuleCUDAImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ctsp/cuda/tsa/examples/rng/RNGModuleCUDAImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/datapoints" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/datapoints" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/ci/run_jenkins2_on_docker.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ci/run_jenkins2_on_docker.sh" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,13 +14,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/opentsdb/api/Tag.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1429" />
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/opentsdb/api/QueryResult.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -83,8 +64,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bin/ci/run_jenkins2_on_docker.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="345">
+              <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bin/ci/mk_jenkins_image/Dockerfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
             </state>
           </provider>
         </entry>
@@ -131,6 +121,7 @@
         <option value="$PROJECT_DIR$/src/main/docker/README.md" />
         <option value="$PROJECT_DIR$/src/main/resources/datapoints" />
         <option value="$PROJECT_DIR$/jenkins" />
+        <option value="$PROJECT_DIR$/bin/ci/mk_jenkins_image/Dockerfile" />
         <option value="$PROJECT_DIR$/bin/ci/run_jenkins2_on_docker.sh" />
       </list>
     </option>
@@ -172,6 +163,13 @@
               <item name="bin" type="462c0819:PsiDirectoryNode" />
               <item name="ci" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="cuda-tsa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Hadoop.TS.NG.Cuda" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+              <item name="ci" type="462c0819:PsiDirectoryNode" />
+              <item name="mk_jenkins_image" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -183,7 +181,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547821852417" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547831917337" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -255,12 +253,20 @@
       <workItem from="1547758101642" duration="3000" />
       <workItem from="1547795765818" duration="2000" />
       <workItem from="1547795787566" duration="2000" />
-      <workItem from="1547798401950" duration="2858000" />
+      <workItem from="1547798401950" duration="4661000" />
     </task>
+    <task id="LOCAL-00001" summary="added a Docekrfile for building a Jenkins CI container">
+      <created>1547831867869</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1547831867869</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12089000" />
+    <option name="totallyTimeSpent" value="13892000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="280" y="28" width="1400" height="921" extended-state="0" />
@@ -302,6 +308,10 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added a Docekrfile for building a Jenkins CI container" />
+    <option name="LAST_COMMIT_MESSAGE" value="added a Docekrfile for building a Jenkins CI container" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/connectors/opentsdb/OpenTSDBConnector.java" />
@@ -533,10 +543,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bin/ci/mk_jenkins_image/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bin/ci/run_jenkins2_on_docker.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="345">
+          <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
         </state>
       </provider>
     </entry>
